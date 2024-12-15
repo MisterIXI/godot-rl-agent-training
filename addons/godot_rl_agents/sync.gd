@@ -1,5 +1,5 @@
 extends Node
-
+class_name AISync
 # --fixed-fps 2000 --disable-render-loop
 
 enum ControlModes { HUMAN, TRAINING, ONNX_INFERENCE }

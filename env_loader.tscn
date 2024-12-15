@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://uk7k7vekstk3"]
+
+[ext_resource type="Script" path="res://project_scenes/env_loader.gd" id="1_uegbv"]
+[ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="2_xdi6n"]
+[ext_resource type="Resource" uid="uid://hiqu4ga707py" path="res://environments/distance_keeper/dk_descriptor.tres" id="3_xbbtg"]
+
+[node name="EnvLoader" type="Node3D" node_paths=PackedStringArray("env_root")]
+script = ExtResource("1_uegbv")
+environments = Array[ExtResource("2_xdi6n")]([ExtResource("3_xbbtg")])
+selection_override = ExtResource("3_xbbtg")
+env_root = NodePath("EnvRoot")
+
+[node name="EnvRoot" type="Node3D" parent="."]
+
+[node name="SelectionMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999945, 0.00818584, -0.00659386, 0, 0.627313, 0.778768, 0.0105113, -0.778724, 0.627278, 1.33005, 41.9654, 37.9943)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.595326, -0.445971, 0.668354, -0.435454, 0.519985, 0.734844, -0.675253, -0.728509, 0.115361, 8.19336, -3.8147e-06, 5.40758)

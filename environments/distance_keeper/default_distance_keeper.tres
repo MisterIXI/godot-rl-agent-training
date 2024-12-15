@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DistanceKeeperEnvSettings" load_steps=2 format=3 uid="uid://dpq8kyveju8l0"]
+
+[ext_resource type="Script" path="res://environments/distance_keeper/distance_env_settings.gd" id="1_dhski"]
+
+[resource]
+script = ExtResource("1_dhski")
+obstacle_margin = 3.0
+max_agent_speed = 15.0
+max_obstacle_speed = 10.0
+target_dist = 5.0
+fixed_penalty = -3.0
+env_size = Vector2(20, 2)
+env_margin = Vector2(4, 1)
+agent_count = Vector2i(5, 15)
+control_mode = 1
+action_repeat = 8
+speed_up = 1.0
+onnx_model_path = ""

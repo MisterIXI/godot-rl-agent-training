@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot RL agent training"
+run/main_scene="res://env_loader.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

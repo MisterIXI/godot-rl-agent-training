@@ -1,0 +1,66 @@
+[gd_scene load_steps=14 format=3 uid="uid://bkejlr2q4vviu"]
+
+[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_env.gd" id="1_omlkm"]
+[ext_resource type="Resource" uid="uid://dpq8kyveju8l0" path="res://environments/distance_keeper/default_distance_keeper.tres" id="2_ddmdp"]
+[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_agent.gd" id="2_pkra6"]
+[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_controller.gd" id="3_d0bv6"]
+[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_obstacle.gd" id="5_478l5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ffl6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_244wc"]
+albedo_color = Color(1, 0.498039, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5wrt8"]
+material = SubResource("StandardMaterial3D_244wc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxcta"]
+albedo_color = Color(0.458405, 0.458405, 0.458405, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fcirl"]
+material = SubResource("StandardMaterial3D_jxcta")
+size = Vector3(20, 0.3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ttjmu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j1f5q"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4che2"]
+material = SubResource("StandardMaterial3D_j1f5q")
+
+[node name="DistanceKeeperEnv" type="Node3D" node_paths=PackedStringArray("agent", "obstacle")]
+script = ExtResource("1_omlkm")
+settings = ExtResource("2_ddmdp")
+agent = NodePath("DistanceKeeperAgent")
+obstacle = NodePath("DKObstacle")
+
+[node name="DistanceKeeperAgent" type="CharacterBody3D" parent="." node_paths=PackedStringArray("obstacle", "ai_controller")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 0)
+script = ExtResource("2_pkra6")
+obstacle = NodePath("../DKObstacle")
+ai_controller = NodePath("DistanceKeeperController")
+
+[node name="DKCollider" type="CollisionShape3D" parent="DistanceKeeperAgent"]
+shape = SubResource("BoxShape3D_8ffl6")
+
+[node name="DKMesh" type="MeshInstance3D" parent="DistanceKeeperAgent"]
+mesh = SubResource("BoxMesh_5wrt8")
+
+[node name="DistanceKeeperController" type="Node3D" parent="DistanceKeeperAgent"]
+script = ExtResource("3_d0bv6")
+reset_after = 600
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+mesh = SubResource("BoxMesh_fcirl")
+
+[node name="DKObstacle" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0)
+script = ExtResource("5_478l5")
+
+[node name="ObstacleCollider" type="CollisionShape3D" parent="DKObstacle"]
+shape = SubResource("BoxShape3D_ttjmu")
+
+[node name="ObstacleMesh" type="MeshInstance3D" parent="DKObstacle"]
+mesh = SubResource("BoxMesh_4che2")

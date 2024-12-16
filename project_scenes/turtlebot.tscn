@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0qa13qbnlo0i"]
+
+[ext_resource type="ArrayMesh" uid="uid://kbgwxdw3fu7q" path="res://models/burger_base.obj" id="1_w247d"]
+[ext_resource type="ArrayMesh" uid="uid://2p2iaruhg6rl" path="res://models/lds.obj" id="2_qx4q3"]
+[ext_resource type="ArrayMesh" uid="uid://trep53lxwwdo" path="res://models/left_tire.obj" id="3_0jjxf"]
+[ext_resource type="ArrayMesh" uid="uid://b8o6s7ussfeqk" path="res://models/right_tire.obj" id="4_46t5l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i16kt"]
+albedo_color = Color(0.440979, 0.440979, 0.440979, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mrnot"]
+
+[node name="Turtlebot" type="RigidBody3D"]
+
+[node name="Meshroot" type="Node3D" parent="."]
+transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0, 0, 0)
+
+[node name="MeshBase" type="MeshInstance3D" parent="Meshroot"]
+mesh = ExtResource("1_w247d")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i16kt")
+
+[node name="MeshLidar" type="MeshInstance3D" parent="Meshroot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 173.511, 0)
+mesh = ExtResource("2_qx4q3")
+skeleton = NodePath("../..")
+
+[node name="WheelLeft" type="MeshInstance3D" parent="Meshroot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0797, 23.3458, -78.8249)
+mesh = ExtResource("3_0jjxf")
+skeleton = NodePath("../..")
+
+[node name="WheelRight" type="MeshInstance3D" parent="Meshroot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.08, 23.346, 78.825)
+mesh = ExtResource("4_46t5l")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Meshroot"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mrnot")

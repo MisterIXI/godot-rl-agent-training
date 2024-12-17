@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0qa13qbnlo0i"]
+[gd_scene load_steps=8 format=3 uid="uid://b0qa13qbnlo0i"]
 
+[ext_resource type="Script" path="res://project_scenes/turtlebot.gd" id="1_cc8xd"]
 [ext_resource type="ArrayMesh" uid="uid://kbgwxdw3fu7q" path="res://models/burger_base.obj" id="1_w247d"]
 [ext_resource type="ArrayMesh" uid="uid://2p2iaruhg6rl" path="res://models/lds.obj" id="2_qx4q3"]
 [ext_resource type="ArrayMesh" uid="uid://trep53lxwwdo" path="res://models/left_tire.obj" id="3_0jjxf"]
@@ -9,11 +10,14 @@
 albedo_color = Color(0.440979, 0.440979, 0.440979, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mrnot"]
+height = 1.0
+radius = 0.4
 
-[node name="Turtlebot" type="RigidBody3D"]
+[node name="Turtlebot" type="CharacterBody3D"]
+script = ExtResource("1_cc8xd")
 
 [node name="Meshroot" type="Node3D" parent="."]
-transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0, 0, 0)
+transform = Transform3D(-2.18557e-10, 0, 0.005, 0, 0.005, 0, -0.005, 0, -2.18557e-10, 0, 0, 0)
 
 [node name="MeshBase" type="MeshInstance3D" parent="Meshroot"]
 mesh = ExtResource("1_w247d")
@@ -38,4 +42,5 @@ skeleton = NodePath("../..")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Meshroot"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_mrnot")

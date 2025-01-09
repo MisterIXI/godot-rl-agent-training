@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnvDescription" load_steps=5 format=3 uid="uid://c0bpq2vy1imiw"]
+
+[ext_resource type="Texture2D" uid="uid://uw0fjqb7sbkv" path="res://environments/TurtlePusher/TurtlePusherImage.png" id="1_8yf3c"]
+[ext_resource type="PackedScene" uid="uid://b3q7epvwgd3ds" path="res://environments/TurtlePusher/turtle_pusher.tscn" id="2_tkaiy"]
+[ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="3_7ntjo"]
+[ext_resource type="Resource" uid="uid://bcjq6bvv58jbs" path="res://environments/TurtlePusher/default_tb_pusher.tres" id="4_eqlfr"]
+
+[resource]
+script = ExtResource("3_7ntjo")
+name = "TurtlePusher"
+scene = ExtResource("2_tkaiy")
+settings = ExtResource("4_eqlfr")
+preview_image = ExtResource("1_8yf3c")

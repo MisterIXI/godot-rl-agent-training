@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TurtlePusherEnvSettings" load_steps=2 format=3 uid="uid://bcjq6bvv58jbs"]
+
+[ext_resource type="Script" path="res://environments/TurtlePusher/tb_push_env_settings.gd" id="1_awdlt"]
+
+[resource]
+script = ExtResource("1_awdlt")
+spawn_margin = 0.1
+reward_success = 5.0
+reward_failure = -5.0
+env_size = Vector2(3, 3)
+env_margin = Vector2(1, 1)
+env_count = Vector2i(1, 1)
+control_mode = 1
+action_repeat = 8
+speed_up = 1.0
+onnx_model_path = ""

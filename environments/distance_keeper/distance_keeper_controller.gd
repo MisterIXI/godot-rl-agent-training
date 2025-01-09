@@ -1,5 +1,6 @@
 extends Node3D
 class_name DistanceAIController
+# TODO: refactor needed with current knowledge
 
 enum ControlModes { INHERIT_FROM_SYNC, HUMAN, TRAINING, ONNX_INFERENCE, RECORD_EXPERT_DEMOS }
 @export var control_mode: ControlModes = ControlModes.INHERIT_FROM_SYNC
@@ -120,3 +121,6 @@ func set_done_false():
 
 func zero_reward():
 	reward = 0.0
+
+func get_info():
+	return {}

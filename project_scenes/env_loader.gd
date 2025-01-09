@@ -8,7 +8,7 @@ class_name ProjectLoader
 ## The root node for the spawned environments
 @export var env_root: Node3D
 ## The spawned sync node
-var sync_node: AISync
+var sync_node: Sync
 
 func _ready():
 	if selection_override:
@@ -36,7 +36,7 @@ func load_env(env: EnvDescription):
 			env_instance.settings = settings
 			env_root.add_child(env_instance)
 	# Spawn the sync node
-	sync_node = AISync.new()
+	sync_node = Sync.new()
 	sync_node.control_mode = settings.control_mode
 	sync_node.action_repeat = settings.action_repeat
 	sync_node.speed_up = settings.speed_up

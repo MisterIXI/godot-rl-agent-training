@@ -22,10 +22,10 @@ func load_env(env: EnvDescription):
 	print("Loading environment: ", env.name)
 	var settings = env.settings
 	# Spawn the environments
-	var x_offset = -(settings.agent_count.x - 1) * (settings.env_size.x + settings.env_margin.x) / 2
-	var y_offset = -(settings.agent_count.y - 1) * (settings.env_size.y + settings.env_margin.y) / 2
-	for x in range(settings.agent_count.x):
-		for y in range(settings.agent_count.y):
+	var x_offset = -(settings.env_count.x - 1) * (settings.env_size.x + settings.env_margin.x) / 2
+	var y_offset = -(settings.env_count.y - 1) * (settings.env_size.y + settings.env_margin.y) / 2
+	for x in range(settings.env_count.x):
+		for y in range(settings.env_count.y):
 			var env_instance = env.scene.instantiate()
 			env_instance.name = env.name + "_env_" + str(x) + "_" + str(y)
 			env_instance.position = Vector3(

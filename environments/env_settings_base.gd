@@ -7,7 +7,7 @@ class_name EnvSettingsBase
 ## The space in x and y should be added when spawned in batch environment
 @export var env_margin: Vector2 = Vector2(3,3)
 ## The count of agents in the environment
-@export var agent_count: Vector2i = Vector2i(1,1)
+@export var env_count: Vector2i = Vector2i(1,1)
 
 @export_group("Sync Node Settings")
 enum ControlModes { HUMAN, TRAINING, ONNX_INFERENCE }

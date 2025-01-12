@@ -1,0 +1,3 @@
+extends EnvSettingsBase
+class_name TBSoccerSettings
+

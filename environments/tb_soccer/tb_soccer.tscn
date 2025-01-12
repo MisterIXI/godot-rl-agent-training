@@ -1,0 +1,191 @@
+[gd_scene load_steps=21 format=3 uid="uid://my5dw8klpqax"]
+
+[ext_resource type="Script" path="res://environments/tb_soccer/tb_soccer_env.gd" id="1_2j8c2"]
+[ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_3in31"]
+[ext_resource type="Script" path="res://environments/tb_soccer/tb_soccer_controller.gd" id="3_4ymlu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11sgl"]
+albedo_color = Color(0, 0.667499, 1.34766e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6vkf"]
+material = SubResource("StandardMaterial3D_11sgl")
+size = Vector3(4, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3blf4"]
+size = Vector3(4, 0.5, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j24p1"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_orawu"]
+material = SubResource("StandardMaterial3D_j24p1")
+size = Vector3(0.09, 0.09, 0.085)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_po1ha"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_wyxtl"]
+material = SubResource("StandardMaterial3D_po1ha")
+size = Vector3(0.09, 0.09, 0.085)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h5nbv"]
+size = Vector3(4, 1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eykr6"]
+size = Vector3(0.3, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftqpo"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vdtku"]
+material = SubResource("StandardMaterial3D_ftqpo")
+size = Vector3(0.3, 1, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ymo2y"]
+size = Vector3(0.3, 1, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtrfb"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7wg62"]
+material = SubResource("StandardMaterial3D_mtrfb")
+size = Vector3(0.3, 1, 1.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7whc"]
+albedo_color = Color(0.799955, 0.382102, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ofjgx"]
+material = SubResource("StandardMaterial3D_x7whc")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ygse8"]
+radius = 0.1
+
+[node name="TbSoccer" type="Node3D" node_paths=PackedStringArray("ball", "tb_left", "tbc_left", "tb_right", "tbc_right", "goal_left", "goal_right", "info_label_left", "info_label_right")]
+script = ExtResource("1_2j8c2")
+ball = NodePath("Ball")
+tb_left = NodePath("TB_Left")
+tbc_left = NodePath("TB_Left/TBSoccerAIController")
+tb_right = NodePath("TB_Right")
+tbc_right = NodePath("TB_Right/TBSoccerAIController")
+goal_left = NodePath("LeftGoal")
+goal_right = NodePath("RightGoal")
+info_label_left = NodePath("LabelLeft")
+info_label_right = NodePath("LabelRight")
+
+[node name="SoccerField" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SoccerField"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_o6vkf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SoccerField"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_3blf4")
+
+[node name="TB_Left" parent="." instance=ExtResource("1_3in31")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -0.651204, 0, 0.361761)
+
+[node name="TBSoccerAIController" type="Node3D" parent="TB_Left" node_paths=PackedStringArray("env", "opponent", "ball", "own_goal", "opponent_goal")]
+script = ExtResource("3_4ymlu")
+env = NodePath("../..")
+opponent = NodePath("../../TB_Right")
+ball = NodePath("../../Ball")
+own_goal = NodePath("../../LeftGoal")
+opponent_goal = NodePath("../../RightGoal")
+reset_after = 5000
+
+[node name="RedIndicator" type="MeshInstance3D" parent="TB_Left"]
+transform = Transform3D(1, 0, -1.77636e-15, 0, 1, 0, 1.77636e-15, 0, 1, 0, 0.170012, 0)
+mesh = SubResource("PrismMesh_orawu")
+
+[node name="TB_Right" parent="." instance=ExtResource("1_3in31")]
+transform = Transform3D(0.390121, 0, 0.920764, 0, 1, 0, -0.920764, 0, 0.390121, 0.743818, 0, 0.352357)
+
+[node name="TBSoccerAIController" type="Node3D" parent="TB_Right" node_paths=PackedStringArray("env", "opponent", "ball", "own_goal", "opponent_goal")]
+script = ExtResource("3_4ymlu")
+env = NodePath("../..")
+opponent = NodePath("../../TB_Left")
+ball = NodePath("../../Ball")
+own_goal = NodePath("../../RightGoal")
+opponent_goal = NodePath("../../LeftGoal")
+disabled_agent = true
+reset_after = 10000
+
+[node name="BlueIndicator" type="MeshInstance3D" parent="TB_Right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0)
+mesh = SubResource("PrismMesh_wyxtl")
+skeleton = NodePath("../../TB_Left")
+
+[node name="FieldWalls" type="StaticBody3D" parent="."]
+
+[node name="TopWall" type="CollisionShape3D" parent="FieldWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.65)
+shape = SubResource("BoxShape3D_h5nbv")
+
+[node name="BottomWall" type="CollisionShape3D" parent="FieldWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.65)
+shape = SubResource("BoxShape3D_h5nbv")
+
+[node name="TopLeftWall" type="CollisionShape3D" parent="FieldWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15, 0, -1.3)
+shape = SubResource("BoxShape3D_eykr6")
+
+[node name="BottomLeftWall" type="CollisionShape3D" parent="FieldWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15, 0, 1.3)
+shape = SubResource("BoxShape3D_eykr6")
+
+[node name="TopRightWall" type="CollisionShape3D" parent="FieldWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 0, -1.3)
+shape = SubResource("BoxShape3D_eykr6")
+
+[node name="BottomRightWall" type="CollisionShape3D" parent="FieldWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 0, 1.3)
+shape = SubResource("BoxShape3D_eykr6")
+
+[node name="LeftGoal" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15, 0, 0)
+
+[node name="LeftGoalMesh" type="MeshInstance3D" parent="LeftGoal"]
+mesh = SubResource("BoxMesh_vdtku")
+
+[node name="LeftGoalCollider" type="CollisionShape3D" parent="LeftGoal"]
+shape = SubResource("BoxShape3D_ymo2y")
+
+[node name="RightGoal" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15, 0, 0)
+
+[node name="RightGoalMesh" type="MeshInstance3D" parent="RightGoal"]
+mesh = SubResource("BoxMesh_7wg62")
+
+[node name="RightGoalCollider" type="CollisionShape3D" parent="RightGoal"]
+shape = SubResource("BoxShape3D_ymo2y")
+
+[node name="Ball" type="RigidBody3D" parent="." groups=["Ball"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.252757, 0.0999998, -0.0293872)
+
+[node name="BallMesh" type="MeshInstance3D" parent="Ball"]
+mesh = SubResource("SphereMesh_ofjgx")
+
+[node name="BallCollider" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_ygse8")
+
+[node name="LabelLeft" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, -2, 0, 1.5)
+text = "faeaef
+aefaefa
+aef"
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="LabelRight" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 2, 0, 1.5)
+text = "faeaef
+aefaefa
+aef"
+horizontal_alignment = 2
+vertical_alignment = 0
+
+[connection signal="body_entered" from="LeftGoal" to="." method="_on_left_goal_body_entered"]
+[connection signal="body_entered" from="RightGoal" to="." method="_on_right_goal_body_entered"]

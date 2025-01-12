@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://uk7k7vekstk3"]
+[gd_scene load_steps=7 format=3 uid="uid://uk7k7vekstk3"]
 
 [ext_resource type="Script" path="res://project_scenes/env_loader.gd" id="1_uegbv"]
 [ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="2_xdi6n"]
 [ext_resource type="Resource" uid="uid://hiqu4ga707py" path="res://environments/distance_keeper/dk_descriptor.tres" id="3_xbbtg"]
 [ext_resource type="Resource" uid="uid://c0bpq2vy1imiw" path="res://environments/TurtlePusher/turtle_pusher_descriptor.tres" id="4_xmyc3"]
+[ext_resource type="Resource" uid="uid://dackmeye6u06q" path="res://environments/tb_soccer/soccer_description.tres" id="5_eatdw"]
+
+[sub_resource type="Environment" id="Environment_n7yvx"]
 
 [node name="EnvLoader" type="Node3D" node_paths=PackedStringArray("env_root")]
 script = ExtResource("1_uegbv")
-environments = Array[ExtResource("2_xdi6n")]([ExtResource("3_xbbtg"), ExtResource("4_xmyc3")])
-selection_override = ExtResource("4_xmyc3")
+environments = Array[ExtResource("2_xdi6n")]([ExtResource("3_xbbtg"), ExtResource("4_xmyc3"), ExtResource("5_eatdw")])
+selection_override = ExtResource("5_eatdw")
 env_root = NodePath("EnvRoot")
 
 [node name="EnvRoot" type="Node3D" parent="."]
@@ -20,7 +23,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999478, 0.0268401, -0.0180032, 0, 0.55705, 0.830479, 0.0323188, -0.830045, 0.556759, -0.0564773, 5.14693, 5.29979)
+transform = Transform3D(0.999981, 0.0052393, -0.0032164, 0, 0.523178, 0.852223, 0.0061478, -0.852207, 0.523169, 0.336695, 6.02821, 9.49714)
+environment = SubResource("Environment_n7yvx")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.595326, -0.445971, 0.668354, -0.435454, 0.519985, 0.734844, -0.675253, -0.728509, 0.115361, 8.19336, -3.8147e-06, 5.40758)

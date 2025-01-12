@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TBSoccerSettings" load_steps=2 format=3 uid="uid://cr2p2tbv1usdl"]
+
+[ext_resource type="Script" path="res://environments/tb_soccer/soccer_settings.gd" id="1_pk884"]
+
+[resource]
+script = ExtResource("1_pk884")
+env_size = Vector2(4, 3)
+env_margin = Vector2(1, 1)
+env_count = Vector2i(5, 5)
+control_mode = 1
+action_repeat = 16
+speed_up = 10.0
+onnx_model_path = ""

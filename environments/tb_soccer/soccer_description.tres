@@ -8,6 +8,7 @@
 [resource]
 script = ExtResource("1_xyrwr")
 name = "TB Soccer"
+description = "Turtlebot Soccer"
 scene = ExtResource("2_j8sil")
 settings = ExtResource("4_fujei")
 preview_image = ExtResource("1_5aoa1")

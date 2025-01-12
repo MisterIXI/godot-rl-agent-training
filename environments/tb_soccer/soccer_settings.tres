@@ -11,3 +11,5 @@ control_mode = 1
 action_repeat = 16
 speed_up = 10.0
 onnx_model_path = ""
+camera_pos = Vector3(0, 6.7, 9)
+camera_rot = Vector3(-67.5, 0, 0)

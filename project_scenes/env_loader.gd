@@ -1,12 +1,17 @@
 extends Node3D
 class_name ProjectLoader
-@export_group("Sync_Settings")
+# @export_group("Sync_Settings")
 ## List of environments to load
 @export var environments: Array[EnvDescription] = []
 ## When set, this environment will be loaded instantly instead of presenting the selection
 @export var selection_override: EnvDescription = null
 ## The root node for the spawned environments
 @export var env_root: Node3D
+@export var list_entry_scene: PackedScene
+@export var env_container: VBoxContainer
+@export var selection_menu_node: Control
+@export var connection_text: Panel
+@export var camera: Camera3D
 ## The spawned sync node
 var sync_node: Sync
 
@@ -15,10 +20,26 @@ func _ready():
 		load_env(selection_override)
 	else:
 		# Show the selection screen
-		# TODO
+		for env in environments:
+			var list_entry = list_entry_scene.instantiate() as ListEntry
+			list_entry.image.texture = env.preview_image
+			list_entry.title_label.text = env.name
+			list_entry.desc_label.text = env.description
+			list_entry.settings_label.text = env.settings._to_string()
+			list_entry.env_desc = env
+			list_entry.env_loader = self
+			env_container.add_child(list_entry)
 		pass
 
 func load_env(env: EnvDescription):
+	connection_text.show()
+	selection_menu_node.hide()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	connection_text.hide()
+	# move camera
+	camera.position = env.settings.camera_pos
+	camera.rotation_degrees = env.settings.camera_rot
 	print("Loading environment: ", env.name)
 	var settings = env.settings
 	# Spawn the environments

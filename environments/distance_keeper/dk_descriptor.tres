@@ -8,6 +8,7 @@
 [resource]
 script = ExtResource("1_snljo")
 name = "Distance Keeper"
+description = "Orange keeps distance from red"
 scene = ExtResource("1_ayj8r")
 settings = ExtResource("4_t2jjj")
 preview_image = ExtResource("3_qlbvy")

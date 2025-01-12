@@ -1,23 +1,30 @@
 extends AIController3D
 class_name TBPushAIController
-
 @onready var turtle: TurtleBotController = get_parent()
 @onready var env: TurtlePusherEnv = get_parent().get_parent()
+@export var info_label: Label3D
 
+var running_rewards: Array[float] = []
 var is_success: bool = false
-
+var last_closest_dist_change: int = 0
+var closest_dist: float = 0
+var closest_to_ball: float = 0
+var ball_in_button_area: bool = false
+var has_been_close_to_ball: bool = false
 # func _ready():
 # 	pass
 
 func get_obs() -> Dictionary:
-	var factor = env.settings.env_size.x / 2
+	var factor = env.settings.env_size.x
+	var ball_pos = turtle.to_local(env.ball.global_position)
+	var target_pos = turtle.to_local(env.target.global_position)
 	return {"obs": [
 		turtle.position.x / factor,
 		turtle.position.z / factor,
-		env.target.position.x / factor,
-		env.target.position.z / factor,
-		env.ball.position.x / factor,
-		env.ball.position.z / factor,
+		target_pos.x / factor,
+		target_pos.z / factor,
+		ball_pos.x / factor,
+		ball_pos.z / factor,
 		env.ball.linear_velocity.x,
 		env.ball.linear_velocity.z,
 	]}
@@ -25,7 +32,44 @@ func get_obs() -> Dictionary:
 
 func get_reward() -> float:
 	var result = reward
-	# TODO: Add actual reward logic
+	# # reward for being close to ball
+	# var ball_dist = env.ball.position.distance_to(env.turtle.position)
+	# if ball_dist < closest_to_ball:
+	# 	closest_to_ball = ball_dist
+	# 	result += ball_dist / 4.0
+	# var close_rew = 2 - env.ball.position.distance_to(env.turtle.position) 
+	# close_rew /= 8.0
+	# result += close_rew
+	# if not has_been_close_to_ball and env.ball.position.distance_to(env.turtle.position) < 0.5:
+	# 	has_been_close_to_ball = true
+	# 	result += env.settings.reward_close_to_ball
+	# if ball_in_button_area and turtle.twist_vel > 0.05:
+	# 	result += env.settings.reward_pushing
+	# punish for ball not moving
+	# if env.ball.linear_velocity.length() < 0.01:
+	# 	result -= 0.01
+	# reward for driving forward
+	# if turtle.twist_vel < -0.01:
+	# 	result += 0.01
+	# punish for driving backward
+	# if turtle.twist_vel > 0.01:
+	# 	result -= 0.01
+	# check if ball is now closer to target than record of run
+	var dist = env.ball.position.distance_to(env.target.position)
+	if dist < closest_dist:
+		var dif = (closest_dist - dist) / 4.0
+		result += dif * 100
+		closest_dist = dist
+		# add time based bonus
+		# result += min(-0.01, (100 - (n_steps - last_closest_dist_change)) * 0.01)
+	# code for info label
+	running_rewards.append(result)
+	if running_rewards.size() > 60:
+		running_rewards.pop_front()
+	var sum = running_rewards.reduce(func(acc, x): return acc + x, 0) / 60
+	var text = "Reward: " + str("%+.2f" % result) + " Avg: " + str("%+.2f" % sum)
+	text += "\nGoals/min: " + "%.2f" % (env.goals_reached.size() / 5.0)
+	info_label.text = text
 	return result
 
 
@@ -47,7 +91,7 @@ func _physics_process(_delta):
 		needs_reset = true
 		is_success = false
 		done = true
-		reward += env.settings.reward_failure
+		# reward += env.settings.reward_failure
 	if needs_reset:
 		# print("Needs_reset: ", needs_reset)
 		env.reset()
@@ -55,6 +99,12 @@ func _physics_process(_delta):
 func reset():
 	n_steps = 0
 	needs_reset = false
+	turtle.twist_ang = 0
+	turtle.twist_vel = 0
+	closest_dist = env.ball.position.distance_to(env.target.position)
+	closest_to_ball = env.ball.position.distance_to(env.turtle.position)
+	has_been_close_to_ball = false
+	
 	pass
 
 func get_info() -> Dictionary:
@@ -63,3 +113,12 @@ func get_info() -> Dictionary:
 			"is_success": is_success,
 		}
 	return {}
+
+
+func _on_area_3d_body_entered(body: Node3D):
+	if body.is_in_group("Ball"):
+		ball_in_button_area = true
+
+func _on_area_3d_body_exited(body: Node3D):
+	if body.is_in_group("Ball"):
+		ball_in_button_area = false

@@ -7,6 +7,8 @@ class_name TurtlePusherEnv
 @export var ball: RigidBody3D
 @export var target: Area3D
 
+var goals_reached: Array[int] = []
+
 func roll_random_pos(half_size: float) -> Vector3:
 	return Vector3(
 		randf_range(-half_size, half_size),
@@ -15,6 +17,10 @@ func roll_random_pos(half_size: float) -> Vector3:
 	)
 
 func _physics_process(_delta):
+	# if goals_reached first entry is older than 60 seconds, remove it
+	if goals_reached.size() > 0 and Time.get_ticks_msec() - goals_reached[0] > 60000 * 5:
+		goals_reached.pop_front()
+		
 	# check if turtle is OOB:
 	var bounds_x = settings.env_size.x / 2
 	if (
@@ -23,7 +29,7 @@ func _physics_process(_delta):
 		turtle.position.z < -bounds_x or
 		turtle.position.z > bounds_x
 	):
-		tb_ai_controller.reward += settings.reward_failure
+		# tb_ai_controller.reward += settings.reward_failure
 		tb_ai_controller.done = true
 		tb_ai_controller.needs_reset = true
 		tb_ai_controller.is_success = false
@@ -34,7 +40,7 @@ func _physics_process(_delta):
 		ball.position.z < -bounds_x or
 		ball.position.z > bounds_x
 	):
-		tb_ai_controller.reward += settings.reward_failure
+		# tb_ai_controller.reward += settings.reward_failure
 		tb_ai_controller.done = true
 		tb_ai_controller.needs_reset = true
 		tb_ai_controller.is_success = false
@@ -72,10 +78,12 @@ func reset() -> void:
 	pass
 
 
-
 func _on_target_area_body_entered(body:Node3D) -> void:
 	if body.is_in_group("Ball"):
-		tb_ai_controller.reward += settings.reward_success
+		# tb_ai_controller.reward += settings.reward_success
 		tb_ai_controller.done = true
 		tb_ai_controller.needs_reset = true
 		tb_ai_controller.is_success = true
+		goals_reached.append(Time.get_ticks_msec())
+
+

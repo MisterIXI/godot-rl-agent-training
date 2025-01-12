@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3q7epvwgd3ds"]
+[gd_scene load_steps=15 format=3 uid="uid://b3q7epvwgd3ds"]
 
 [ext_resource type="Script" path="res://environments/TurtlePusher/turtle_pusher_env.gd" id="1_dfue6"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_qbq3d"]
+[ext_resource type="Resource" uid="uid://bcjq6bvv58jbs" path="res://environments/TurtlePusher/default_tb_pusher.tres" id="2_rsjuf"]
 [ext_resource type="Script" path="res://environments/TurtlePusher/tb_push_ai_controller.gd" id="3_71ibg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opbsr"]
-albedo_color = Color(0.340339, 0.340339, 0.340339, 1)
+albedo_color = Color(0.60933, 0.60933, 0.60933, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_npouk"]
 material = SubResource("StandardMaterial3D_opbsr")
@@ -13,6 +14,9 @@ size = Vector3(3, 0.3, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tq0va"]
 size = Vector3(3, 0.3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vfb5q"]
+size = Vector3(0.05, 0.05, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7nlj"]
 transparency = 1
@@ -23,11 +27,11 @@ material = SubResource("StandardMaterial3D_s7nlj")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_pa1iv"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4if47"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asym3"]
 albedo_color = Color(6.01634e-07, 0.610609, 9.62615e-07, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_i67q8"]
-material = SubResource("StandardMaterial3D_4if47")
+material = SubResource("StandardMaterial3D_asym3")
 radius = 0.1
 height = 0.2
 
@@ -36,28 +40,38 @@ radius = 0.1
 
 [node name="TurtlePusherEnv" type="Node3D" node_paths=PackedStringArray("turtle", "tb_ai_controller", "ball", "target")]
 script = ExtResource("1_dfue6")
+settings = ExtResource("2_rsjuf")
 turtle = NodePath("Turtlebot")
 tb_ai_controller = NodePath("Turtlebot/TB_PushAIController")
 ball = NodePath("Ball")
 target = NodePath("TargetArea")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("BoxMesh_npouk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_tq0va")
 
 [node name="Turtlebot" parent="." instance=ExtResource("1_qbq3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0327069, 0, -0.416173)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137214, 0, -0.568905)
 
-[node name="TB_PushAIController" type="Node3D" parent="Turtlebot"]
+[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label")]
 script = ExtResource("3_71ibg")
+info_label = NodePath("../../InfoLabel")
+reset_after = 5000
+
+[node name="Area3D" type="Area3D" parent="Turtlebot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0582185, -0.114774)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Turtlebot/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0350365)
+shape = SubResource("BoxShape3D_vfb5q")
 
 [node name="TargetArea" type="Area3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.716066, 0, 0.00656438)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.645653, -2.38419e-07, 0.178553)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TargetArea"]
 mesh = SubResource("CylinderMesh_a1cq7")
@@ -66,7 +80,7 @@ mesh = SubResource("CylinderMesh_a1cq7")
 shape = SubResource("CylinderShape3D_pa1iv")
 
 [node name="Ball" type="RigidBody3D" parent="." groups=["Ball"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23861, 0.0999999, 0.404573)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368161, 0.0999999, -0.302226)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
 mesh = SubResource("SphereMesh_i67q8")
@@ -74,4 +88,9 @@ mesh = SubResource("SphereMesh_i67q8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_o46am")
 
+[node name="InfoLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.5)
+
+[connection signal="body_entered" from="Turtlebot/Area3D" to="Turtlebot/TB_PushAIController" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Turtlebot/Area3D" to="Turtlebot/TB_PushAIController" method="_on_area_3d_body_exited"]
 [connection signal="body_entered" from="TargetArea" to="." method="_on_target_area_body_entered"]

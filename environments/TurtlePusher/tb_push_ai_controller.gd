@@ -32,36 +32,14 @@ func get_obs() -> Dictionary:
 
 func get_reward() -> float:
 	var result = reward
-	# # reward for being close to ball
-	# var ball_dist = env.ball.position.distance_to(env.turtle.position)
-	# if ball_dist < closest_to_ball:
-	# 	closest_to_ball = ball_dist
-	# 	result += ball_dist / 4.0
-	# var close_rew = 2 - env.ball.position.distance_to(env.turtle.position) 
-	# close_rew /= 8.0
-	# result += close_rew
-	# if not has_been_close_to_ball and env.ball.position.distance_to(env.turtle.position) < 0.5:
-	# 	has_been_close_to_ball = true
-	# 	result += env.settings.reward_close_to_ball
-	# if ball_in_button_area and turtle.twist_vel > 0.05:
-	# 	result += env.settings.reward_pushing
-	# punish for ball not moving
-	# if env.ball.linear_velocity.length() < 0.01:
-	# 	result -= 0.01
-	# reward for driving forward
-	# if turtle.twist_vel < -0.01:
-	# 	result += 0.01
-	# punish for driving backward
-	# if turtle.twist_vel > 0.01:
-	# 	result -= 0.01
+	# mini punishment for turning to discourage
+	result -= abs(turtle.twist_ang) * 0.01
 	# check if ball is now closer to target than record of run
 	var dist = env.ball.position.distance_to(env.target.position)
 	if dist < closest_dist:
 		var dif = (closest_dist - dist) / 4.0
 		result += dif * 100
 		closest_dist = dist
-		# add time based bonus
-		# result += min(-0.01, (100 - (n_steps - last_closest_dist_change)) * 0.01)
 	# code for info label
 	running_rewards.append(result)
 	if running_rewards.size() > 60:

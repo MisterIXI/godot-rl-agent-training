@@ -13,6 +13,8 @@ var ball_in_button_area: bool = false
 var has_been_close_to_ball: bool = false
 # func _ready():
 # 	pass
+var turns_made: int = 0
+var angle_accum: float = 0
 
 func get_obs() -> Dictionary:
 	var factor = env.settings.env_size.x
@@ -33,7 +35,8 @@ func get_obs() -> Dictionary:
 func get_reward() -> float:
 	var result = reward
 	# mini punishment for turning to discourage
-	result -= abs(turtle.twist_ang) * 0.01
+	result -= turns_made * 0.1
+	turns_made = 0
 	# check if ball is now closer to target than record of run
 	var dist = env.ball.position.distance_to(env.target.position)
 	if dist < closest_dist:
@@ -63,6 +66,15 @@ func set_action(action) -> void:
 	turtle.set_twist_ang(action["twist_ang"][0])
 
 func _physics_process(_delta):
+	# spiral calc
+	angle_accum += turtle.twist_ang * _delta
+	if angle_accum > deg_to_rad(360):
+		turns_made += 1
+		if angle_accum < 0:
+			angle_accum += deg_to_rad(360)
+		else:
+			angle_accum -= deg_to_rad(360)
+	
 	n_steps += 1
 	if n_steps > reset_after:
 		# print("N_steps: ", n_steps)
@@ -82,7 +94,8 @@ func reset():
 	closest_dist = env.ball.position.distance_to(env.target.position)
 	closest_to_ball = env.ball.position.distance_to(env.turtle.position)
 	has_been_close_to_ball = false
-	
+	turns_made = 0
+	angle_accum = 0
 	pass
 
 func get_info() -> Dictionary:

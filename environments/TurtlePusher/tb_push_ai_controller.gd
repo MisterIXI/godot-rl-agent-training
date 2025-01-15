@@ -62,8 +62,8 @@ func get_action_space() -> Dictionary:
 
 
 func set_action(action) -> void:
-	# turtle.set_twist_vel(clamp(action["twist_vel"][0], -1.0, 0.2))
-	turtle.set_twist_vel(action["twist_vel"][0])
+	turtle.set_twist_vel(clamp(action["twist_vel"][0], -1.0, 0.8))
+	# turtle.set_twist_vel(-action["twist_vel"][0])
 	turtle.set_twist_ang(action["twist_ang"][0])
 
 func _physics_process(_delta):

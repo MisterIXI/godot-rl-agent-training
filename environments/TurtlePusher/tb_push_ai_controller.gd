@@ -69,7 +69,7 @@ func set_action(action) -> void:
 func _physics_process(_delta):
 	# spiral calc
 	angle_accum += turtle.twist_ang * _delta
-	if angle_accum > deg_to_rad(360):
+	if abs(angle_accum) > deg_to_rad(360):
 		turns_made += 1
 		if angle_accum < 0:
 			angle_accum += deg_to_rad(360)

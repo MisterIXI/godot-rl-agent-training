@@ -80,7 +80,7 @@ func reset() -> void:
 
 func _on_target_area_body_entered(body:Node3D) -> void:
 	if body.is_in_group("Ball"):
-		# tb_ai_controller.reward += settings.reward_success
+		tb_ai_controller.reward += settings.reward_success
 		tb_ai_controller.done = true
 		tb_ai_controller.needs_reset = true
 		tb_ai_controller.is_success = true

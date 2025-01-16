@@ -21,7 +21,7 @@ func get_obs() -> Dictionary:
 	var ball_pos = turtle.to_local(env.ball.global_position)
 	var target_pos = turtle.to_local(env.target.global_position)
 	# ball vel in turtle local space, scaled by 10 to be roughly -1 to 1
-	var ball_vel = turtle.to_local(env.ball.to_global(env.ball.linear_velocity) - env.ball.global_position + turtle.global_position)
+	var ball_vel = turtle.to_local(env.ball.linear_velocity + turtle.global_position)
 	return {"obs": [
 		turtle.position.x / factor,
 		turtle.position.z / factor,

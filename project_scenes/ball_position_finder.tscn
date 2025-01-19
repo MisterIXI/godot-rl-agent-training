@@ -1,0 +1,1249 @@
+[gd_scene load_steps=19 format=3 uid="uid://dsdny5abw4kh"]
+
+[ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_cucwt"]
+[ext_resource type="Script" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="2_dw0vq"]
+[ext_resource type="Script" path="res://project_scenes/ball_locator.gd" id="3_pk2sy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvs6h"]
+transparency = 1
+albedo_color = Color(0, 1, 0, 0.552941)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lyxm2"]
+material = SubResource("StandardMaterial3D_bvs6h")
+top_radius = 0.03
+bottom_radius = 0.03
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ai8wb"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_edhu0"]
+size = Vector2(7, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r7n0g"]
+size = Vector3(0.3, 2, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_00bqp"]
+size = Vector3(0.3, 2, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lj65m"]
+size = Vector3(7.6, 2, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_guvbb"]
+size = Vector3(7.6, 2, 0.3)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h8f6v"]
+radius = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_ghmlw"]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ah2ww"]
+albedo_color = Color(0.556953, 0.556953, 0.556953, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r5q7s"]
+material = SubResource("StandardMaterial3D_ah2ww")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_imnig"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n58ni"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3heth"]
+
+[node name="BallPositionFinder" type="Node3D"]
+
+[node name="Turtlebot" parent="." instance=ExtResource("1_cucwt")]
+collision_layer = 2
+
+[node name="RayCastSensor3D" type="Node3D" parent="Turtlebot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.158117, 0)
+script = ExtResource("2_dw0vq")
+n_rays_width = 360.0
+n_rays_height = 1.0
+cone_width = 360.0
+cone_height = 0.0
+
+[node name="@RayCast3D@44534" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.0872654, 0, -9.99962)
+
+[node name="@RayCast3D@44535" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.261769, 0, -9.99657)
+
+[node name="@RayCast3D@44536" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.436194, 0, -9.99048)
+
+[node name="@RayCast3D@44537" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.610485, 0, -9.98135)
+
+[node name="@RayCast3D@44538" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.784591, 0, -9.96917)
+
+[node name="@RayCast3D@44539" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.958458, 0, -9.95396)
+
+[node name="node_6 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.13203, 0, -9.93572)
+
+[node name="node_7 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.30526, 0, -9.91445)
+
+[node name="node_8 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.47809, 0, -9.89016)
+
+[node name="node_9 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.65048, 0, -9.86286)
+
+[node name="node_10 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.82236, 0, -9.83255)
+
+[node name="node_11 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.99368, 0, -9.79925)
+
+[node name="node_12 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.1644, 0, -9.76296)
+
+[node name="node_13 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.33445, 0, -9.7237)
+
+[node name="node_14 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.5038, 0, -9.68148)
+
+[node name="node_15 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.67238, 0, -9.6363)
+
+[node name="node_16 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.84015, 0, -9.5882)
+
+[node name="node_17 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.00706, 0, -9.53717)
+
+[node name="node_18 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.17305, 0, -9.48324)
+
+[node name="node_19 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.33807, 0, -9.42641)
+
+[node name="node_20 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.50207, 0, -9.36672)
+
+[node name="node_21 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.66501, 0, -9.30418)
+
+[node name="node_22 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.82683, 0, -9.2388)
+
+[node name="node_23 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.98749, 0, -9.1706)
+
+[node name="node_24 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.14693, 0, -9.09961)
+
+[node name="node_25 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.30511, 0, -9.02585)
+
+[node name="node_26 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.46198, 0, -8.94934)
+
+[node name="node_27 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.61749, 0, -8.87011)
+
+[node name="node_28 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.77159, 0, -8.78817)
+
+[node name="node_29 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.92424, 0, -8.70356)
+
+[node name="node_30 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.07538, 0, -8.61629)
+
+[node name="node_31 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.22499, 0, -8.5264)
+
+[node name="node_32 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.373, 0, -8.43391)
+
+[node name="node_33 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.51937, 0, -8.33886)
+
+[node name="node_34 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.66406, 0, -8.24126)
+
+[node name="node_35 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.80703, 0, -8.14116)
+
+[node name="node_36 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.94823, 0, -8.03857)
+
+[node name="node_37 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.08761, 0, -7.93353)
+
+[node name="node_38 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.22515, 0, -7.82608)
+
+[node name="node_39 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.36078, 0, -7.71625)
+
+[node name="node_40 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.49448, 0, -7.60406)
+
+[node name="node_41 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.6262, 0, -7.48956)
+
+[node name="node_42 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.7559, 0, -7.37277)
+
+[node name="node_43 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.88355, 0, -7.25374)
+
+[node name="node_44 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.00909, 0, -7.1325)
+
+[node name="node_45 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.1325, 0, -7.00909)
+
+[node name="node_46 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.25374, 0, -6.88355)
+
+[node name="node_47 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.37277, 0, -6.7559)
+
+[node name="node_48 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.48956, 0, -6.6262)
+
+[node name="node_49 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.60406, 0, -6.49448)
+
+[node name="node_50 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.71625, 0, -6.36078)
+
+[node name="node_51 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.82608, 0, -6.22515)
+
+[node name="node_52 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.93353, 0, -6.08761)
+
+[node name="node_53 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.03857, 0, -5.94823)
+
+[node name="node_54 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.14116, 0, -5.80703)
+
+[node name="node_55 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.24126, 0, -5.66406)
+
+[node name="node_56 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.33886, 0, -5.51937)
+
+[node name="node_57 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.43391, 0, -5.373)
+
+[node name="node_58 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.5264, 0, -5.22499)
+
+[node name="node_59 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.61629, 0, -5.07538)
+
+[node name="node_60 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.70356, 0, -4.92424)
+
+[node name="node_61 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.78817, 0, -4.77159)
+
+[node name="node_62 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.87011, 0, -4.61749)
+
+[node name="node_63 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.94934, 0, -4.46198)
+
+[node name="node_64 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.02585, 0, -4.30511)
+
+[node name="node_65 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.09961, 0, -4.14693)
+
+[node name="node_66 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.1706, 0, -3.98749)
+
+[node name="node_67 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.2388, 0, -3.82683)
+
+[node name="node_68 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.30418, 0, -3.66501)
+
+[node name="node_69 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.36672, 0, -3.50207)
+
+[node name="node_70 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.42641, 0, -3.33807)
+
+[node name="node_71 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.48324, 0, -3.17305)
+
+[node name="node_72 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.53717, 0, -3.00706)
+
+[node name="node_73 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.5882, 0, -2.84015)
+
+[node name="node_74 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.6363, 0, -2.67238)
+
+[node name="node_75 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.68148, 0, -2.5038)
+
+[node name="node_76 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.7237, 0, -2.33445)
+
+[node name="node_77 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.76296, 0, -2.1644)
+
+[node name="node_78 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.79925, 0, -1.99368)
+
+[node name="node_79 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.83255, 0, -1.82236)
+
+[node name="node_80 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.86286, 0, -1.65048)
+
+[node name="node_81 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.89016, 0, -1.47809)
+
+[node name="node_82 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.91445, 0, -1.30526)
+
+[node name="node_83 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.93572, 0, -1.13203)
+
+[node name="node_84 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.95396, 0, -0.958458)
+
+[node name="node_85 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.96917, 0, -0.784591)
+
+[node name="node_86 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.98135, 0, -0.610485)
+
+[node name="node_87 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.99048, 0, -0.436194)
+
+[node name="node_88 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.99657, 0, -0.261769)
+
+[node name="node_89 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.99962, 0, -0.0872654)
+
+[node name="node_90 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.99962, 0, 0.0872654)
+
+[node name="node_91 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.99657, 0, 0.261769)
+
+[node name="node_92 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.99048, 0, 0.436194)
+
+[node name="node_93 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.98135, 0, 0.610485)
+
+[node name="node_94 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.96917, 0, 0.784591)
+
+[node name="node_95 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.95396, 0, 0.958458)
+
+[node name="node_96 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.93572, 0, 1.13203)
+
+[node name="node_97 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.91445, 0, 1.30526)
+
+[node name="node_98 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.89016, 0, 1.47809)
+
+[node name="node_99 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.86286, 0, 1.65048)
+
+[node name="node_100 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.83255, 0, 1.82236)
+
+[node name="node_101 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.79925, 0, 1.99368)
+
+[node name="node_102 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.76296, 0, 2.1644)
+
+[node name="node_103 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.7237, 0, 2.33445)
+
+[node name="node_104 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.68148, 0, 2.5038)
+
+[node name="node_105 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.6363, 0, 2.67238)
+
+[node name="node_106 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.5882, 0, 2.84015)
+
+[node name="node_107 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.53717, 0, 3.00706)
+
+[node name="node_108 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.48324, 0, 3.17305)
+
+[node name="node_109 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.42641, 0, 3.33807)
+
+[node name="node_110 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.36672, 0, 3.50207)
+
+[node name="node_111 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.30418, 0, 3.66501)
+
+[node name="node_112 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.2388, 0, 3.82683)
+
+[node name="node_113 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.1706, 0, 3.98749)
+
+[node name="node_114 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.09961, 0, 4.14693)
+
+[node name="node_115 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-9.02585, 0, 4.30511)
+
+[node name="node_116 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.94934, 0, 4.46198)
+
+[node name="node_117 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.87011, 0, 4.61749)
+
+[node name="node_118 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.78817, 0, 4.77159)
+
+[node name="node_119 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.70356, 0, 4.92424)
+
+[node name="node_120 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.61629, 0, 5.07538)
+
+[node name="node_121 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.5264, 0, 5.22499)
+
+[node name="node_122 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.43391, 0, 5.373)
+
+[node name="node_123 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.33886, 0, 5.51937)
+
+[node name="node_124 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.24126, 0, 5.66406)
+
+[node name="node_125 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.14116, 0, 5.80703)
+
+[node name="node_126 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-8.03857, 0, 5.94823)
+
+[node name="node_127 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.93353, 0, 6.08761)
+
+[node name="node_128 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.82608, 0, 6.22515)
+
+[node name="node_129 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.71625, 0, 6.36078)
+
+[node name="node_130 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.60406, 0, 6.49448)
+
+[node name="node_131 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.48956, 0, 6.6262)
+
+[node name="node_132 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.37277, 0, 6.7559)
+
+[node name="node_133 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.25374, 0, 6.88355)
+
+[node name="node_134 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.1325, 0, 7.00909)
+
+[node name="node_135 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-7.00909, 0, 7.1325)
+
+[node name="node_136 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.88355, 0, 7.25374)
+
+[node name="node_137 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.7559, 0, 7.37277)
+
+[node name="node_138 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.6262, 0, 7.48956)
+
+[node name="node_139 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.49448, 0, 7.60406)
+
+[node name="node_140 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.36078, 0, 7.71625)
+
+[node name="node_141 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.22515, 0, 7.82608)
+
+[node name="node_142 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-6.08761, 0, 7.93353)
+
+[node name="node_143 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.94823, 0, 8.03857)
+
+[node name="node_144 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.80703, 0, 8.14116)
+
+[node name="node_145 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.66406, 0, 8.24126)
+
+[node name="node_146 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.51937, 0, 8.33886)
+
+[node name="node_147 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.373, 0, 8.43391)
+
+[node name="node_148 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.22499, 0, 8.5264)
+
+[node name="node_149 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-5.07538, 0, 8.61629)
+
+[node name="node_150 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.92424, 0, 8.70356)
+
+[node name="node_151 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.77159, 0, 8.78817)
+
+[node name="node_152 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.61749, 0, 8.87011)
+
+[node name="node_153 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.46198, 0, 8.94934)
+
+[node name="node_154 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.30511, 0, 9.02585)
+
+[node name="node_155 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-4.14693, 0, 9.09961)
+
+[node name="node_156 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.98749, 0, 9.1706)
+
+[node name="node_157 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.82683, 0, 9.2388)
+
+[node name="node_158 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.66501, 0, 9.30418)
+
+[node name="node_159 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.50207, 0, 9.36672)
+
+[node name="node_160 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.33807, 0, 9.42641)
+
+[node name="node_161 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.17305, 0, 9.48324)
+
+[node name="node_162 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-3.00706, 0, 9.53717)
+
+[node name="node_163 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.84015, 0, 9.5882)
+
+[node name="node_164 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.67238, 0, 9.6363)
+
+[node name="node_165 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.5038, 0, 9.68148)
+
+[node name="node_166 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.33445, 0, 9.7237)
+
+[node name="node_167 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-2.1644, 0, 9.76296)
+
+[node name="node_168 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.99368, 0, 9.79925)
+
+[node name="node_169 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.82236, 0, 9.83255)
+
+[node name="node_170 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.65048, 0, 9.86286)
+
+[node name="node_171 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.47809, 0, 9.89016)
+
+[node name="node_172 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.30526, 0, 9.91445)
+
+[node name="node_173 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-1.13203, 0, 9.93572)
+
+[node name="node_174 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.958458, 0, 9.95396)
+
+[node name="node_175 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.784591, 0, 9.96917)
+
+[node name="node_176 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.610485, 0, 9.98135)
+
+[node name="node_177 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.436194, 0, 9.99048)
+
+[node name="node_178 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.261769, 0, 9.99657)
+
+[node name="node_179 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(-0.0872654, 0, 9.99962)
+
+[node name="node_180 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.0872654, 0, 9.99962)
+
+[node name="node_181 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.261769, 0, 9.99657)
+
+[node name="node_182 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.436194, 0, 9.99048)
+
+[node name="node_183 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.610485, 0, 9.98135)
+
+[node name="node_184 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.784591, 0, 9.96917)
+
+[node name="node_185 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.958458, 0, 9.95396)
+
+[node name="node_186 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.13203, 0, 9.93572)
+
+[node name="node_187 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.30526, 0, 9.91445)
+
+[node name="node_188 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.47809, 0, 9.89016)
+
+[node name="node_189 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.65048, 0, 9.86286)
+
+[node name="node_190 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.82236, 0, 9.83255)
+
+[node name="node_191 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.99368, 0, 9.79925)
+
+[node name="node_192 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.1644, 0, 9.76296)
+
+[node name="node_193 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.33445, 0, 9.7237)
+
+[node name="node_194 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.5038, 0, 9.68148)
+
+[node name="node_195 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.67238, 0, 9.6363)
+
+[node name="node_196 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.84015, 0, 9.5882)
+
+[node name="node_197 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.00706, 0, 9.53717)
+
+[node name="node_198 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.17305, 0, 9.48324)
+
+[node name="node_199 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.33807, 0, 9.42641)
+
+[node name="node_200 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.50207, 0, 9.36672)
+
+[node name="node_201 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.66501, 0, 9.30418)
+
+[node name="node_202 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.82683, 0, 9.2388)
+
+[node name="node_203 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.98749, 0, 9.1706)
+
+[node name="node_204 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.14693, 0, 9.09961)
+
+[node name="node_205 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.30511, 0, 9.02585)
+
+[node name="node_206 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.46198, 0, 8.94934)
+
+[node name="node_207 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.61749, 0, 8.87011)
+
+[node name="node_208 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.77159, 0, 8.78817)
+
+[node name="node_209 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.92424, 0, 8.70356)
+
+[node name="node_210 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.07538, 0, 8.61629)
+
+[node name="node_211 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.22499, 0, 8.5264)
+
+[node name="node_212 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.373, 0, 8.43391)
+
+[node name="node_213 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.51937, 0, 8.33886)
+
+[node name="node_214 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.66406, 0, 8.24126)
+
+[node name="node_215 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.80703, 0, 8.14116)
+
+[node name="node_216 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.94823, 0, 8.03857)
+
+[node name="node_217 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.08761, 0, 7.93353)
+
+[node name="node_218 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.22515, 0, 7.82608)
+
+[node name="node_219 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.36078, 0, 7.71625)
+
+[node name="node_220 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.49448, 0, 7.60406)
+
+[node name="node_221 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.6262, 0, 7.48956)
+
+[node name="node_222 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.7559, 0, 7.37277)
+
+[node name="node_223 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.88355, 0, 7.25374)
+
+[node name="node_224 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.00909, 0, 7.1325)
+
+[node name="node_225 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.1325, 0, 7.00909)
+
+[node name="node_226 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.25374, 0, 6.88355)
+
+[node name="node_227 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.37277, 0, 6.7559)
+
+[node name="node_228 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.48956, 0, 6.6262)
+
+[node name="node_229 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.60406, 0, 6.49448)
+
+[node name="node_230 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.71625, 0, 6.36078)
+
+[node name="node_231 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.82608, 0, 6.22515)
+
+[node name="node_232 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.93353, 0, 6.08761)
+
+[node name="node_233 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.03857, 0, 5.94823)
+
+[node name="node_234 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.14116, 0, 5.80703)
+
+[node name="node_235 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.24126, 0, 5.66406)
+
+[node name="node_236 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.33886, 0, 5.51937)
+
+[node name="node_237 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.43391, 0, 5.373)
+
+[node name="node_238 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.5264, 0, 5.22499)
+
+[node name="node_239 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.61629, 0, 5.07538)
+
+[node name="node_240 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.70356, 0, 4.92424)
+
+[node name="node_241 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.78817, 0, 4.77159)
+
+[node name="node_242 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.87011, 0, 4.61749)
+
+[node name="node_243 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.94934, 0, 4.46198)
+
+[node name="node_244 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.02585, 0, 4.30511)
+
+[node name="node_245 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.09961, 0, 4.14693)
+
+[node name="node_246 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.1706, 0, 3.98749)
+
+[node name="node_247 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.2388, 0, 3.82683)
+
+[node name="node_248 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.30418, 0, 3.66501)
+
+[node name="node_249 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.36672, 0, 3.50207)
+
+[node name="node_250 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.42641, 0, 3.33807)
+
+[node name="node_251 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.48324, 0, 3.17305)
+
+[node name="node_252 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.53717, 0, 3.00706)
+
+[node name="node_253 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.5882, 0, 2.84015)
+
+[node name="node_254 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.6363, 0, 2.67238)
+
+[node name="node_255 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.68148, 0, 2.5038)
+
+[node name="node_256 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.7237, 0, 2.33445)
+
+[node name="node_257 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.76296, 0, 2.1644)
+
+[node name="node_258 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.79925, 0, 1.99368)
+
+[node name="node_259 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.83255, 0, 1.82236)
+
+[node name="node_260 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.86286, 0, 1.65048)
+
+[node name="node_261 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.89016, 0, 1.47809)
+
+[node name="node_262 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.91445, 0, 1.30526)
+
+[node name="node_263 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.93572, 0, 1.13203)
+
+[node name="node_264 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.95396, 0, 0.958458)
+
+[node name="node_265 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.96917, 0, 0.784591)
+
+[node name="node_266 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.98135, 0, 0.610485)
+
+[node name="node_267 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.99048, 0, 0.436194)
+
+[node name="node_268 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.99657, 0, 0.261769)
+
+[node name="node_269 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.99962, 0, 0.0872654)
+
+[node name="node_270 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.99962, 0, -0.0872654)
+
+[node name="node_271 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.99657, 0, -0.261769)
+
+[node name="node_272 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.99048, 0, -0.436194)
+
+[node name="node_273 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.98135, 0, -0.610485)
+
+[node name="node_274 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.96917, 0, -0.784591)
+
+[node name="node_275 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.95396, 0, -0.958458)
+
+[node name="node_276 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.93572, 0, -1.13203)
+
+[node name="node_277 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.91445, 0, -1.30526)
+
+[node name="node_278 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.89016, 0, -1.47809)
+
+[node name="node_279 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.86286, 0, -1.65048)
+
+[node name="node_280 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.83255, 0, -1.82236)
+
+[node name="node_281 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.79925, 0, -1.99368)
+
+[node name="node_282 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.76296, 0, -2.1644)
+
+[node name="node_283 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.7237, 0, -2.33445)
+
+[node name="node_284 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.68148, 0, -2.5038)
+
+[node name="node_285 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.6363, 0, -2.67238)
+
+[node name="node_286 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.5882, 0, -2.84015)
+
+[node name="node_287 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.53717, 0, -3.00706)
+
+[node name="node_288 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.48324, 0, -3.17305)
+
+[node name="node_289 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.42641, 0, -3.33807)
+
+[node name="node_290 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.36672, 0, -3.50207)
+
+[node name="node_291 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.30418, 0, -3.66501)
+
+[node name="node_292 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.2388, 0, -3.82683)
+
+[node name="node_293 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.1706, 0, -3.98749)
+
+[node name="node_294 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.09961, 0, -4.14693)
+
+[node name="node_295 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(9.02585, 0, -4.30511)
+
+[node name="node_296 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.94934, 0, -4.46198)
+
+[node name="node_297 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.87011, 0, -4.61749)
+
+[node name="node_298 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.78817, 0, -4.77159)
+
+[node name="node_299 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.70356, 0, -4.92424)
+
+[node name="node_300 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.61629, 0, -5.07538)
+
+[node name="node_301 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.5264, 0, -5.22499)
+
+[node name="node_302 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.43391, 0, -5.373)
+
+[node name="node_303 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.33886, 0, -5.51937)
+
+[node name="node_304 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.24126, 0, -5.66406)
+
+[node name="node_305 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.14116, 0, -5.80703)
+
+[node name="node_306 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(8.03857, 0, -5.94823)
+
+[node name="node_307 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.93353, 0, -6.08761)
+
+[node name="node_308 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.82608, 0, -6.22515)
+
+[node name="node_309 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.71625, 0, -6.36078)
+
+[node name="node_310 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.60406, 0, -6.49448)
+
+[node name="node_311 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.48956, 0, -6.6262)
+
+[node name="node_312 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.37277, 0, -6.7559)
+
+[node name="node_313 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.25374, 0, -6.88355)
+
+[node name="node_314 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.1325, 0, -7.00909)
+
+[node name="node_315 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(7.00909, 0, -7.1325)
+
+[node name="node_316 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.88355, 0, -7.25374)
+
+[node name="node_317 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.7559, 0, -7.37277)
+
+[node name="node_318 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.6262, 0, -7.48956)
+
+[node name="node_319 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.49448, 0, -7.60406)
+
+[node name="node_320 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.36078, 0, -7.71625)
+
+[node name="node_321 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.22515, 0, -7.82608)
+
+[node name="node_322 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(6.08761, 0, -7.93353)
+
+[node name="node_323 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.94823, 0, -8.03857)
+
+[node name="node_324 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.80703, 0, -8.14116)
+
+[node name="node_325 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.66406, 0, -8.24126)
+
+[node name="node_326 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.51937, 0, -8.33886)
+
+[node name="node_327 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.373, 0, -8.43391)
+
+[node name="node_328 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.22499, 0, -8.5264)
+
+[node name="node_329 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(5.07538, 0, -8.61629)
+
+[node name="node_330 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.92424, 0, -8.70356)
+
+[node name="node_331 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.77159, 0, -8.78817)
+
+[node name="node_332 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.61749, 0, -8.87011)
+
+[node name="node_333 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.46198, 0, -8.94934)
+
+[node name="node_334 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.30511, 0, -9.02585)
+
+[node name="node_335 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(4.14693, 0, -9.09961)
+
+[node name="node_336 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.98749, 0, -9.1706)
+
+[node name="node_337 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.82683, 0, -9.2388)
+
+[node name="node_338 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.66501, 0, -9.30418)
+
+[node name="node_339 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.50207, 0, -9.36672)
+
+[node name="node_340 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.33807, 0, -9.42641)
+
+[node name="node_341 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.17305, 0, -9.48324)
+
+[node name="node_342 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(3.00706, 0, -9.53717)
+
+[node name="node_343 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.84015, 0, -9.5882)
+
+[node name="node_344 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.67238, 0, -9.6363)
+
+[node name="node_345 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.5038, 0, -9.68148)
+
+[node name="node_346 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.33445, 0, -9.7237)
+
+[node name="node_347 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(2.1644, 0, -9.76296)
+
+[node name="node_348 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.99368, 0, -9.79925)
+
+[node name="node_349 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.82236, 0, -9.83255)
+
+[node name="node_350 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.65048, 0, -9.86286)
+
+[node name="node_351 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.47809, 0, -9.89016)
+
+[node name="node_352 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.30526, 0, -9.91445)
+
+[node name="node_353 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(1.13203, 0, -9.93572)
+
+[node name="node_354 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.958458, 0, -9.95396)
+
+[node name="node_355 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.784591, 0, -9.96917)
+
+[node name="node_356 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.610485, 0, -9.98135)
+
+[node name="node_357 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.436194, 0, -9.99048)
+
+[node name="node_358 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.261769, 0, -9.99657)
+
+[node name="node_359 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
+target_position = Vector3(0.0872654, 0, -9.99962)
+
+[node name="BallLocator" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("sensors", "indicator_mesh")]
+script = ExtResource("3_pk2sy")
+sensors = NodePath("../RayCastSensor3D")
+indicator_mesh = NodePath("../LocatorIndicatorMesh")
+
+[node name="LocatorIndicatorMesh" type="MeshInstance3D" parent="Turtlebot"]
+visible = false
+mesh = SubResource("CylinderMesh_lyxm2")
+
+[node name="SampleTimer" type="Timer" parent="Turtlebot"]
+wait_time = 0.5
+autostart = true
+
+[node name="Arena" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Arena"]
+shape = SubResource("WorldBoundaryShape3D_ai8wb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arena"]
+mesh = SubResource("PlaneMesh_edhu0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65, 0, 0)
+shape = SubResource("BoxShape3D_r7n0g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arena/CollisionShape3D2"]
+mesh = SubResource("BoxMesh_00bqp")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.65, 0, 0)
+shape = SubResource("BoxShape3D_r7n0g")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Arena/CollisionShape3D3"]
+mesh = SubResource("BoxMesh_00bqp")
+skeleton = NodePath("../../CollisionShape3D2")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.15)
+shape = SubResource("BoxShape3D_lj65m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Arena/CollisionShape3D4"]
+mesh = SubResource("BoxMesh_guvbb")
+skeleton = NodePath("../../CollisionShape3D2")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.15)
+shape = SubResource("BoxShape3D_lj65m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Arena/CollisionShape3D5"]
+mesh = SubResource("BoxMesh_guvbb")
+skeleton = NodePath("../../CollisionShape3D2")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.509824, 0.15, 0)
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_h8f6v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_ghmlw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.740511, -0.569072, 0.357491, 0, 0.531946, 0.846779, -0.672044, -0.627049, 0.393912, 0, 2.1384, 19.2022)
+
+[node name="Obstacle" type="StaticBody3D" parent="."]
+transform = Transform3D(0.828041, 0, 0.560668, 0, 1, 0, -0.560668, 0, 0.828041, -1.35718, 0, 1.67389)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle"]
+mesh = SubResource("BoxMesh_r5q7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle"]
+shape = SubResource("BoxShape3D_imnig")
+
+[node name="Obstacle2" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.231578, 0, 0.972816, 0, 1, 0, -0.972816, 0, -0.231578, -0.495966, 0, -3.26778)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle2"]
+mesh = SubResource("BoxMesh_r5q7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle2"]
+shape = SubResource("BoxShape3D_imnig")
+
+[node name="Obstacle3" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.576019, 0, 0.817437, 0, 1, 0, -0.817437, 0, -0.576019, 3.14647, -2.38419e-07, -1.80577)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle3"]
+mesh = SubResource("BoxMesh_r5q7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle3"]
+shape = SubResource("BoxShape3D_imnig")
+
+[node name="Obstacle4" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.576019, 0, 0.817437, 0, 1, 0, -0.817437, 0, -0.576019, 3.14647, -2.38419e-07, 3.32435)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle4"]
+mesh = SubResource("CylinderMesh_n58ni")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle4"]
+shape = SubResource("CylinderShape3D_3heth")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999945, 0.0100962, -0.00276118, 0, 0.263799, 0.964578, 0.010467, -0.964525, 0.263785, 0.19362, 6.20182, 2.21486)
+
+[connection signal="timeout" from="Turtlebot/SampleTimer" to="Turtlebot/BallLocator" method="sample_ball"]

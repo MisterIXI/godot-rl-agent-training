@@ -2,3 +2,5 @@
 .godot/
 /android/
 Builds
+/python_dir/finished_envs/
+

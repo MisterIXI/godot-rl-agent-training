@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3q7epvwgd3ds"]
+[gd_scene load_steps=18 format=3 uid="uid://b3q7epvwgd3ds"]
 
 [ext_resource type="Script" path="res://environments/TurtlePusher/turtle_pusher_env.gd" id="1_dfue6"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_qbq3d"]
@@ -15,6 +15,12 @@ size = Vector3(3, 0.3, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tq0va"]
 size = Vector3(3, 0.3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hd3np"]
+size = Vector3(0.1, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11wxs"]
+size = Vector3(3.2, 2, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vfb5q"]
 size = Vector3(0.05, 0.05, 0.05)
@@ -33,11 +39,11 @@ albedo_color = Color(6.01634e-07, 0.610609, 9.62615e-07, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_i67q8"]
 material = SubResource("StandardMaterial3D_asym3")
-radius = 0.1
-height = 0.2
+radius = 0.085
+height = 0.17
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o46am"]
-radius = 0.1
+radius = 0.085
 
 [node name="TurtlePusherEnv" type="Node3D" node_paths=PackedStringArray("turtle", "tb_ai_controller", "ball", "target")]
 script = ExtResource("1_dfue6")
@@ -56,13 +62,30 @@ mesh = SubResource("BoxMesh_npouk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_tq0va")
 
-[node name="Turtlebot" parent="." instance=ExtResource("1_qbq3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.137214, 0, -0.568905)
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 0.7, 0)
+shape = SubResource("BoxShape3D_hd3np")
 
-[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens")]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 0.7, 0)
+shape = SubResource("BoxShape3D_hd3np")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.55)
+shape = SubResource("BoxShape3D_11wxs")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.55)
+shape = SubResource("BoxShape3D_11wxs")
+
+[node name="Turtlebot" parent="." instance=ExtResource("1_qbq3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.589713, 0, -0.663526)
+
+[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens", "lidar_sens")]
 script = ExtResource("3_71ibg")
 info_label = NodePath("../../InfoLabel")
-raycast_sens = NodePath("../RayCastSensor3D")
+raycast_sens = NodePath("../BallCameraSensorArray")
+lidar_sens = NodePath("../LidarSensorArray")
 reset_after = 5000
 
 [node name="Area3D" type="Area3D" parent="Turtlebot"]
@@ -72,91 +95,1255 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0582185, -0.114774)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0350365)
 shape = SubResource("BoxShape3D_vfb5q")
 
-[node name="RayCastSensor3D" type="Node3D" parent="Turtlebot"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.090531, 0)
+[node name="BallCameraSensorArray" type="Node3D" parent="Turtlebot"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.12, 0)
 script = ExtResource("5_3oubp")
 collision_mask = 5
 boolean_class_mask = 4
-n_rays_width = 15.0
+n_rays_width = 30.0
 n_rays_height = 1.0
 ray_length = 4.0
+cone_width = 120.0
 collide_with_areas = true
 class_sensor = true
 
-[node name="@RayCast3D@30760" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-1.87789, 0, 3.53179)
+[node name="@RayCast3D@28477" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.39219, 0, 2.11968)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30761" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-1.62695, 0, 3.65418)
+[node name="@RayCast3D@28478" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.23607, 0, 2.35114)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30762" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-1.36808, 0, 3.75877)
+[node name="node_2 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.06418, 0, 2.57115)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30763" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-1.10255, 0, 3.84505)
+[node name="node_3 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.87736, 0, 2.77863)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30764" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-0.831647, 0, 3.91259)
+[node name="node_4 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.67652, 0, 2.97258)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30765" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-0.556692, 0, 3.96107)
+[node name="node_5 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.46265, 0, 3.15204)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30766" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(-0.279026, 0, 3.99026)
+[node name="node_6 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.23677, 0, 3.31615)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30767" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(0, 0, 4)
+[node name="node_7 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2, 0, 3.4641)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30768" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(0.279026, 0, 3.99026)
+[node name="node_8 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.75348, 0, 3.59518)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@30769" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(0.556692, 0, 3.96107)
+[node name="node_9 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.49843, 0, 3.70874)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_10 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(0.831647, 0, 3.91259)
+[node name="node_10 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.23607, 0, 3.80423)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_11 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(1.10255, 0, 3.84505)
+[node name="node_11 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.967688, 0, 3.88118)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_12 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(1.36808, 0, 3.75877)
+[node name="node_12 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.694593, 0, 3.93923)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_13 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(1.62695, 0, 3.65418)
+[node name="node_13 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.418114, 0, 3.97809)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_14 0" type="RayCast3D" parent="Turtlebot/RayCastSensor3D"]
-target_position = Vector3(1.87789, 0, 3.53179)
+[node name="node_14 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.139598, 0, 3.99756)
 collision_mask = 5
 collide_with_areas = true
+
+[node name="node_15 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.139598, 0, 3.99756)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_16 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.418114, 0, 3.97809)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_17 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.694593, 0, 3.93923)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_18 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.967688, 0, 3.88118)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_19 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.23607, 0, 3.80423)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_20 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.49843, 0, 3.70874)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_21 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.75348, 0, 3.59518)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_22 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2, 0, 3.4641)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_23 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.23677, 0, 3.31615)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_24 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.46265, 0, 3.15204)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_25 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.67652, 0, 2.97258)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_26 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.87736, 0, 2.77863)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_27 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.06418, 0, 2.57115)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_28 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.23607, 0, 2.35114)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_29 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.39219, 0, 2.11968)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="LidarSensorArray" type="Node3D" parent="Turtlebot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+script = ExtResource("5_3oubp")
+n_rays_width = 360.0
+n_rays_height = 1.0
+ray_length = 4.215
+cone_width = 360.0
+
+[node name="@RayCast3D@45821" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.0367823, 0, -4.21484)
+
+[node name="@RayCast3D@45822" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.110336, 0, -4.21356)
+
+[node name="@RayCast3D@45823" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.183856, 0, -4.21099)
+
+[node name="@RayCast3D@45824" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.25732, 0, -4.20714)
+
+[node name="@RayCast3D@45825" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.330705, 0, -4.20201)
+
+[node name="@RayCast3D@45826" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.40399, 0, -4.19559)
+
+[node name="@RayCast3D@45827" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.477152, 0, -4.18791)
+
+[node name="@RayCast3D@45828" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.550168, 0, -4.17894)
+
+[node name="@RayCast3D@45829" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.623017, 0, -4.1687)
+
+[node name="@RayCast3D@45830" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.695676, 0, -4.15719)
+
+[node name="@RayCast3D@45831" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.768123, 0, -4.14442)
+
+[node name="@RayCast3D@45832" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.840336, 0, -4.13038)
+
+[node name="@RayCast3D@45833" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.912293, 0, -4.11509)
+
+[node name="@RayCast3D@45834" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.983972, 0, -4.09854)
+
+[node name="@RayCast3D@45835" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.05535, 0, -4.08074)
+
+[node name="@RayCast3D@45836" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.12641, 0, -4.0617)
+
+[node name="@RayCast3D@45837" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.19712, 0, -4.04143)
+
+[node name="@RayCast3D@45838" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.26747, 0, -4.01992)
+
+[node name="@RayCast3D@45839" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.33744, 0, -3.99718)
+
+[node name="@RayCast3D@45840" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.407, 0, -3.97323)
+
+[node name="@RayCast3D@45841" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.47612, 0, -3.94807)
+
+[node name="@RayCast3D@45842" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.5448, 0, -3.92171)
+
+[node name="@RayCast3D@45843" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.61301, 0, -3.89415)
+
+[node name="@RayCast3D@45844" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.68073, 0, -3.86541)
+
+[node name="@RayCast3D@45845" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.74793, 0, -3.83549)
+
+[node name="@RayCast3D@45846" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.8146, 0, -3.8044)
+
+[node name="@RayCast3D@45847" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.88072, 0, -3.77215)
+
+[node name="@RayCast3D@45848" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.94627, 0, -3.73875)
+
+[node name="@RayCast3D@45849" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.01122, 0, -3.70421)
+
+[node name="@RayCast3D@45850" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.07557, 0, -3.66855)
+
+[node name="@RayCast3D@45851" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.13927, 0, -3.63177)
+
+[node name="@RayCast3D@45852" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.20233, 0, -3.59388)
+
+[node name="@RayCast3D@45853" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.26472, 0, -3.55489)
+
+[node name="@RayCast3D@45854" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.32641, 0, -3.51483)
+
+[node name="@RayCast3D@45855" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.3874, 0, -3.47369)
+
+[node name="@RayCast3D@45856" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.44766, 0, -3.4315)
+
+[node name="@RayCast3D@45857" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.50718, 0, -3.38826)
+
+[node name="@RayCast3D@45858" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.56593, 0, -3.34398)
+
+[node name="@RayCast3D@45859" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.6239, 0, -3.29869)
+
+[node name="@RayCast3D@45860" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.68107, 0, -3.2524)
+
+[node name="@RayCast3D@45861" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.73742, 0, -3.20511)
+
+[node name="@RayCast3D@45862" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.79294, 0, -3.15685)
+
+[node name="@RayCast3D@45863" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.84761, 0, -3.10762)
+
+[node name="@RayCast3D@45864" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.90141, 0, -3.05745)
+
+[node name="@RayCast3D@45865" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.95433, 0, -3.00635)
+
+[node name="@RayCast3D@45866" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.00635, 0, -2.95433)
+
+[node name="@RayCast3D@45867" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.05745, 0, -2.90141)
+
+[node name="@RayCast3D@45868" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.10762, 0, -2.84761)
+
+[node name="@RayCast3D@45869" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.15685, 0, -2.79294)
+
+[node name="@RayCast3D@45870" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.20511, 0, -2.73742)
+
+[node name="@RayCast3D@45871" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.2524, 0, -2.68107)
+
+[node name="@RayCast3D@45872" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.29869, 0, -2.6239)
+
+[node name="@RayCast3D@45873" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.34398, 0, -2.56593)
+
+[node name="@RayCast3D@45874" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.38826, 0, -2.50718)
+
+[node name="@RayCast3D@45875" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.4315, 0, -2.44766)
+
+[node name="@RayCast3D@45876" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.47369, 0, -2.3874)
+
+[node name="@RayCast3D@45877" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.51483, 0, -2.32641)
+
+[node name="@RayCast3D@45878" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.55489, 0, -2.26472)
+
+[node name="@RayCast3D@45879" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.59388, 0, -2.20233)
+
+[node name="@RayCast3D@45880" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.63177, 0, -2.13927)
+
+[node name="@RayCast3D@45881" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.66855, 0, -2.07557)
+
+[node name="@RayCast3D@45882" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.70421, 0, -2.01122)
+
+[node name="@RayCast3D@45883" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.73875, 0, -1.94627)
+
+[node name="@RayCast3D@45884" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.77215, 0, -1.88072)
+
+[node name="@RayCast3D@45885" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.8044, 0, -1.8146)
+
+[node name="@RayCast3D@45886" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.83549, 0, -1.74793)
+
+[node name="@RayCast3D@45887" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.86541, 0, -1.68073)
+
+[node name="@RayCast3D@45888" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.89415, 0, -1.61301)
+
+[node name="@RayCast3D@45889" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.92171, 0, -1.5448)
+
+[node name="@RayCast3D@45890" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.94807, 0, -1.47612)
+
+[node name="@RayCast3D@45891" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.97323, 0, -1.407)
+
+[node name="@RayCast3D@45892" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.99718, 0, -1.33744)
+
+[node name="@RayCast3D@45893" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.01992, 0, -1.26747)
+
+[node name="@RayCast3D@45894" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.04143, 0, -1.19712)
+
+[node name="@RayCast3D@45895" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.0617, 0, -1.12641)
+
+[node name="@RayCast3D@45896" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.08074, 0, -1.05535)
+
+[node name="@RayCast3D@45897" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.09854, 0, -0.983972)
+
+[node name="@RayCast3D@45898" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.11509, 0, -0.912293)
+
+[node name="@RayCast3D@45899" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.13038, 0, -0.840336)
+
+[node name="@RayCast3D@45900" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.14442, 0, -0.768123)
+
+[node name="@RayCast3D@45901" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.15719, 0, -0.695676)
+
+[node name="@RayCast3D@45902" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.1687, 0, -0.623017)
+
+[node name="@RayCast3D@45903" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.17894, 0, -0.550168)
+
+[node name="@RayCast3D@45904" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.18791, 0, -0.477152)
+
+[node name="@RayCast3D@45905" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.19559, 0, -0.40399)
+
+[node name="@RayCast3D@45906" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.20201, 0, -0.330705)
+
+[node name="@RayCast3D@45907" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.20714, 0, -0.25732)
+
+[node name="@RayCast3D@45908" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.21099, 0, -0.183856)
+
+[node name="@RayCast3D@45909" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.21356, 0, -0.110336)
+
+[node name="@RayCast3D@45910" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.21484, 0, -0.0367823)
+
+[node name="@RayCast3D@45911" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.21484, 0, 0.0367823)
+
+[node name="@RayCast3D@45912" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.21356, 0, 0.110336)
+
+[node name="@RayCast3D@45913" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.21099, 0, 0.183856)
+
+[node name="@RayCast3D@45914" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.20714, 0, 0.25732)
+
+[node name="@RayCast3D@45915" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.20201, 0, 0.330705)
+
+[node name="@RayCast3D@45916" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.19559, 0, 0.40399)
+
+[node name="@RayCast3D@45917" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.18791, 0, 0.477152)
+
+[node name="@RayCast3D@45918" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.17894, 0, 0.550168)
+
+[node name="@RayCast3D@45919" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.1687, 0, 0.623017)
+
+[node name="@RayCast3D@45920" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.15719, 0, 0.695676)
+
+[node name="@RayCast3D@45921" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.14442, 0, 0.768123)
+
+[node name="@RayCast3D@45922" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.13038, 0, 0.840336)
+
+[node name="@RayCast3D@45923" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.11509, 0, 0.912293)
+
+[node name="@RayCast3D@45924" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.09854, 0, 0.983972)
+
+[node name="@RayCast3D@45925" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.08074, 0, 1.05535)
+
+[node name="@RayCast3D@45926" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.0617, 0, 1.12641)
+
+[node name="@RayCast3D@45927" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.04143, 0, 1.19712)
+
+[node name="@RayCast3D@45928" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-4.01992, 0, 1.26747)
+
+[node name="@RayCast3D@45929" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.99718, 0, 1.33744)
+
+[node name="@RayCast3D@45930" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.97323, 0, 1.407)
+
+[node name="@RayCast3D@45931" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.94807, 0, 1.47612)
+
+[node name="@RayCast3D@45932" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.92171, 0, 1.5448)
+
+[node name="@RayCast3D@45933" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.89415, 0, 1.61301)
+
+[node name="@RayCast3D@45934" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.86541, 0, 1.68073)
+
+[node name="@RayCast3D@45935" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.83549, 0, 1.74793)
+
+[node name="@RayCast3D@45936" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.8044, 0, 1.8146)
+
+[node name="@RayCast3D@45937" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.77215, 0, 1.88072)
+
+[node name="@RayCast3D@45938" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.73875, 0, 1.94627)
+
+[node name="@RayCast3D@45939" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.70421, 0, 2.01122)
+
+[node name="@RayCast3D@45940" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.66855, 0, 2.07557)
+
+[node name="@RayCast3D@45941" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.63177, 0, 2.13927)
+
+[node name="@RayCast3D@45942" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.59388, 0, 2.20233)
+
+[node name="@RayCast3D@45943" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.55489, 0, 2.26472)
+
+[node name="@RayCast3D@45944" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.51483, 0, 2.32641)
+
+[node name="@RayCast3D@45945" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.47369, 0, 2.3874)
+
+[node name="@RayCast3D@45946" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.4315, 0, 2.44766)
+
+[node name="@RayCast3D@45947" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.38826, 0, 2.50718)
+
+[node name="@RayCast3D@45948" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.34398, 0, 2.56593)
+
+[node name="@RayCast3D@45949" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.29869, 0, 2.6239)
+
+[node name="@RayCast3D@45950" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.2524, 0, 2.68107)
+
+[node name="@RayCast3D@45951" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.20511, 0, 2.73742)
+
+[node name="@RayCast3D@45952" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.15685, 0, 2.79294)
+
+[node name="@RayCast3D@45953" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.10762, 0, 2.84761)
+
+[node name="@RayCast3D@45954" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.05745, 0, 2.90141)
+
+[node name="@RayCast3D@45955" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.00635, 0, 2.95433)
+
+[node name="@RayCast3D@45956" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.95433, 0, 3.00635)
+
+[node name="@RayCast3D@45957" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.90141, 0, 3.05745)
+
+[node name="@RayCast3D@45958" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.84761, 0, 3.10762)
+
+[node name="@RayCast3D@45959" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.79294, 0, 3.15685)
+
+[node name="@RayCast3D@45960" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.73742, 0, 3.20511)
+
+[node name="@RayCast3D@45961" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.68107, 0, 3.2524)
+
+[node name="@RayCast3D@45962" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.6239, 0, 3.29869)
+
+[node name="@RayCast3D@45963" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.56593, 0, 3.34398)
+
+[node name="@RayCast3D@45964" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.50718, 0, 3.38826)
+
+[node name="@RayCast3D@45965" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.44766, 0, 3.4315)
+
+[node name="@RayCast3D@45966" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.3874, 0, 3.47369)
+
+[node name="@RayCast3D@45967" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.32641, 0, 3.51483)
+
+[node name="@RayCast3D@45968" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.26472, 0, 3.55489)
+
+[node name="@RayCast3D@45969" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.20233, 0, 3.59388)
+
+[node name="@RayCast3D@45970" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.13927, 0, 3.63177)
+
+[node name="@RayCast3D@45971" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.07557, 0, 3.66855)
+
+[node name="@RayCast3D@45972" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-2.01122, 0, 3.70421)
+
+[node name="@RayCast3D@45973" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.94627, 0, 3.73875)
+
+[node name="@RayCast3D@45974" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.88072, 0, 3.77215)
+
+[node name="@RayCast3D@45975" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.8146, 0, 3.8044)
+
+[node name="@RayCast3D@45976" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.74793, 0, 3.83549)
+
+[node name="@RayCast3D@45977" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.68073, 0, 3.86541)
+
+[node name="@RayCast3D@45978" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.61301, 0, 3.89415)
+
+[node name="@RayCast3D@45979" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.5448, 0, 3.92171)
+
+[node name="@RayCast3D@45980" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.47612, 0, 3.94807)
+
+[node name="@RayCast3D@45981" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.407, 0, 3.97323)
+
+[node name="@RayCast3D@45982" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.33744, 0, 3.99718)
+
+[node name="@RayCast3D@45983" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.26747, 0, 4.01992)
+
+[node name="@RayCast3D@45984" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.19712, 0, 4.04143)
+
+[node name="@RayCast3D@45985" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.12641, 0, 4.0617)
+
+[node name="@RayCast3D@45986" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.05535, 0, 4.08074)
+
+[node name="@RayCast3D@45987" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.983972, 0, 4.09854)
+
+[node name="@RayCast3D@45988" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.912293, 0, 4.11509)
+
+[node name="@RayCast3D@45989" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.840336, 0, 4.13038)
+
+[node name="@RayCast3D@45990" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.768123, 0, 4.14442)
+
+[node name="@RayCast3D@45991" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.695676, 0, 4.15719)
+
+[node name="@RayCast3D@45992" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.623017, 0, 4.1687)
+
+[node name="@RayCast3D@45993" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.550168, 0, 4.17894)
+
+[node name="@RayCast3D@45994" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.477152, 0, 4.18791)
+
+[node name="@RayCast3D@45995" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.40399, 0, 4.19559)
+
+[node name="@RayCast3D@45996" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.330705, 0, 4.20201)
+
+[node name="@RayCast3D@45997" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.25732, 0, 4.20714)
+
+[node name="@RayCast3D@45998" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.183856, 0, 4.21099)
+
+[node name="@RayCast3D@45999" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.110336, 0, 4.21356)
+
+[node name="@RayCast3D@46000" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-0.0367823, 0, 4.21484)
+
+[node name="@RayCast3D@46001" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.0367823, 0, 4.21484)
+
+[node name="@RayCast3D@46002" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.110336, 0, 4.21356)
+
+[node name="@RayCast3D@46003" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.183856, 0, 4.21099)
+
+[node name="@RayCast3D@46004" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.25732, 0, 4.20714)
+
+[node name="@RayCast3D@46005" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.330705, 0, 4.20201)
+
+[node name="@RayCast3D@46006" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.40399, 0, 4.19559)
+
+[node name="@RayCast3D@46007" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.477152, 0, 4.18791)
+
+[node name="@RayCast3D@46008" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.550168, 0, 4.17894)
+
+[node name="@RayCast3D@46009" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.623017, 0, 4.1687)
+
+[node name="@RayCast3D@46010" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.695676, 0, 4.15719)
+
+[node name="@RayCast3D@46011" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.768123, 0, 4.14442)
+
+[node name="@RayCast3D@46012" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.840336, 0, 4.13038)
+
+[node name="@RayCast3D@46013" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.912293, 0, 4.11509)
+
+[node name="@RayCast3D@46014" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.983972, 0, 4.09854)
+
+[node name="@RayCast3D@46015" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.05535, 0, 4.08074)
+
+[node name="@RayCast3D@46016" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.12641, 0, 4.0617)
+
+[node name="@RayCast3D@46017" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.19712, 0, 4.04143)
+
+[node name="@RayCast3D@46018" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.26747, 0, 4.01992)
+
+[node name="@RayCast3D@46019" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.33744, 0, 3.99718)
+
+[node name="@RayCast3D@46020" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.407, 0, 3.97323)
+
+[node name="@RayCast3D@46021" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.47612, 0, 3.94807)
+
+[node name="@RayCast3D@46022" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.5448, 0, 3.92171)
+
+[node name="@RayCast3D@46023" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.61301, 0, 3.89415)
+
+[node name="@RayCast3D@46024" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.68073, 0, 3.86541)
+
+[node name="@RayCast3D@46025" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.74793, 0, 3.83549)
+
+[node name="@RayCast3D@46026" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.8146, 0, 3.8044)
+
+[node name="@RayCast3D@46027" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.88072, 0, 3.77215)
+
+[node name="@RayCast3D@46028" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.94627, 0, 3.73875)
+
+[node name="@RayCast3D@46029" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.01122, 0, 3.70421)
+
+[node name="@RayCast3D@46030" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.07557, 0, 3.66855)
+
+[node name="@RayCast3D@46031" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.13927, 0, 3.63177)
+
+[node name="@RayCast3D@46032" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.20233, 0, 3.59388)
+
+[node name="@RayCast3D@46033" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.26472, 0, 3.55489)
+
+[node name="@RayCast3D@46034" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.32641, 0, 3.51483)
+
+[node name="@RayCast3D@46035" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.3874, 0, 3.47369)
+
+[node name="@RayCast3D@46036" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.44766, 0, 3.4315)
+
+[node name="@RayCast3D@46037" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.50718, 0, 3.38826)
+
+[node name="@RayCast3D@46038" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.56593, 0, 3.34398)
+
+[node name="@RayCast3D@46039" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.6239, 0, 3.29869)
+
+[node name="@RayCast3D@46040" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.68107, 0, 3.2524)
+
+[node name="@RayCast3D@46041" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.73742, 0, 3.20511)
+
+[node name="@RayCast3D@46042" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.79294, 0, 3.15685)
+
+[node name="@RayCast3D@46043" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.84761, 0, 3.10762)
+
+[node name="@RayCast3D@46044" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.90141, 0, 3.05745)
+
+[node name="@RayCast3D@46045" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.95433, 0, 3.00635)
+
+[node name="@RayCast3D@46046" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.00635, 0, 2.95433)
+
+[node name="@RayCast3D@46047" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.05745, 0, 2.90141)
+
+[node name="@RayCast3D@46048" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.10762, 0, 2.84761)
+
+[node name="@RayCast3D@46049" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.15685, 0, 2.79294)
+
+[node name="@RayCast3D@46050" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.20511, 0, 2.73742)
+
+[node name="@RayCast3D@46051" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.2524, 0, 2.68107)
+
+[node name="@RayCast3D@46052" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.29869, 0, 2.6239)
+
+[node name="@RayCast3D@46053" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.34398, 0, 2.56593)
+
+[node name="@RayCast3D@46054" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.38826, 0, 2.50718)
+
+[node name="@RayCast3D@46055" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.4315, 0, 2.44766)
+
+[node name="@RayCast3D@46056" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.47369, 0, 2.3874)
+
+[node name="@RayCast3D@46057" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.51483, 0, 2.32641)
+
+[node name="@RayCast3D@46058" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.55489, 0, 2.26472)
+
+[node name="@RayCast3D@46059" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.59388, 0, 2.20233)
+
+[node name="@RayCast3D@46060" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.63177, 0, 2.13927)
+
+[node name="@RayCast3D@46061" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.66855, 0, 2.07557)
+
+[node name="@RayCast3D@46062" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.70421, 0, 2.01122)
+
+[node name="@RayCast3D@46063" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.73875, 0, 1.94627)
+
+[node name="@RayCast3D@46064" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.77215, 0, 1.88072)
+
+[node name="@RayCast3D@46065" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.8044, 0, 1.8146)
+
+[node name="@RayCast3D@46066" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.83549, 0, 1.74793)
+
+[node name="@RayCast3D@46067" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.86541, 0, 1.68073)
+
+[node name="@RayCast3D@46068" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.89415, 0, 1.61301)
+
+[node name="@RayCast3D@46069" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.92171, 0, 1.5448)
+
+[node name="@RayCast3D@46070" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.94807, 0, 1.47612)
+
+[node name="@RayCast3D@46071" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.97323, 0, 1.407)
+
+[node name="@RayCast3D@46072" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.99718, 0, 1.33744)
+
+[node name="@RayCast3D@46073" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.01992, 0, 1.26747)
+
+[node name="@RayCast3D@46074" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.04143, 0, 1.19712)
+
+[node name="@RayCast3D@46075" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.0617, 0, 1.12641)
+
+[node name="@RayCast3D@46076" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.08074, 0, 1.05535)
+
+[node name="@RayCast3D@46077" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.09854, 0, 0.983972)
+
+[node name="@RayCast3D@46078" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.11509, 0, 0.912293)
+
+[node name="@RayCast3D@46079" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.13038, 0, 0.840336)
+
+[node name="@RayCast3D@46080" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.14442, 0, 0.768123)
+
+[node name="@RayCast3D@46081" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.15719, 0, 0.695676)
+
+[node name="@RayCast3D@46082" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.1687, 0, 0.623017)
+
+[node name="@RayCast3D@46083" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.17894, 0, 0.550168)
+
+[node name="@RayCast3D@46084" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.18791, 0, 0.477152)
+
+[node name="@RayCast3D@46085" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.19559, 0, 0.40399)
+
+[node name="@RayCast3D@46086" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.20201, 0, 0.330705)
+
+[node name="@RayCast3D@46087" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.20714, 0, 0.25732)
+
+[node name="@RayCast3D@46088" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.21099, 0, 0.183856)
+
+[node name="@RayCast3D@46089" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.21356, 0, 0.110336)
+
+[node name="@RayCast3D@46090" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.21484, 0, 0.0367823)
+
+[node name="@RayCast3D@46091" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.21484, 0, -0.0367823)
+
+[node name="@RayCast3D@46092" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.21356, 0, -0.110336)
+
+[node name="@RayCast3D@46093" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.21099, 0, -0.183856)
+
+[node name="@RayCast3D@46094" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.20714, 0, -0.25732)
+
+[node name="@RayCast3D@46095" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.20201, 0, -0.330705)
+
+[node name="@RayCast3D@46096" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.19559, 0, -0.40399)
+
+[node name="@RayCast3D@46097" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.18791, 0, -0.477152)
+
+[node name="@RayCast3D@46098" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.17894, 0, -0.550168)
+
+[node name="@RayCast3D@46099" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.1687, 0, -0.623017)
+
+[node name="@RayCast3D@46100" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.15719, 0, -0.695676)
+
+[node name="@RayCast3D@46101" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.14442, 0, -0.768123)
+
+[node name="@RayCast3D@46102" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.13038, 0, -0.840336)
+
+[node name="@RayCast3D@46103" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.11509, 0, -0.912293)
+
+[node name="@RayCast3D@46104" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.09854, 0, -0.983972)
+
+[node name="@RayCast3D@46105" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.08074, 0, -1.05535)
+
+[node name="@RayCast3D@46106" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.0617, 0, -1.12641)
+
+[node name="@RayCast3D@46107" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.04143, 0, -1.19712)
+
+[node name="@RayCast3D@46108" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(4.01992, 0, -1.26747)
+
+[node name="@RayCast3D@46109" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.99718, 0, -1.33744)
+
+[node name="@RayCast3D@46110" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.97323, 0, -1.407)
+
+[node name="@RayCast3D@46111" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.94807, 0, -1.47612)
+
+[node name="@RayCast3D@46112" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.92171, 0, -1.5448)
+
+[node name="@RayCast3D@46113" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.89415, 0, -1.61301)
+
+[node name="@RayCast3D@46114" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.86541, 0, -1.68073)
+
+[node name="@RayCast3D@46115" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.83549, 0, -1.74793)
+
+[node name="@RayCast3D@46116" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.8044, 0, -1.8146)
+
+[node name="@RayCast3D@46117" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.77215, 0, -1.88072)
+
+[node name="@RayCast3D@46118" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.73875, 0, -1.94627)
+
+[node name="@RayCast3D@46119" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.70421, 0, -2.01122)
+
+[node name="@RayCast3D@46120" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.66855, 0, -2.07557)
+
+[node name="@RayCast3D@46121" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.63177, 0, -2.13927)
+
+[node name="@RayCast3D@46122" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.59388, 0, -2.20233)
+
+[node name="@RayCast3D@46123" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.55489, 0, -2.26472)
+
+[node name="@RayCast3D@46124" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.51483, 0, -2.32641)
+
+[node name="@RayCast3D@46125" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.47369, 0, -2.3874)
+
+[node name="@RayCast3D@46126" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.4315, 0, -2.44766)
+
+[node name="@RayCast3D@46127" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.38826, 0, -2.50718)
+
+[node name="@RayCast3D@46128" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.34398, 0, -2.56593)
+
+[node name="@RayCast3D@46129" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.29869, 0, -2.6239)
+
+[node name="@RayCast3D@46130" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.2524, 0, -2.68107)
+
+[node name="@RayCast3D@46131" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.20511, 0, -2.73742)
+
+[node name="@RayCast3D@46132" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.15685, 0, -2.79294)
+
+[node name="@RayCast3D@46133" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.10762, 0, -2.84761)
+
+[node name="@RayCast3D@46134" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.05745, 0, -2.90141)
+
+[node name="@RayCast3D@46135" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.00635, 0, -2.95433)
+
+[node name="@RayCast3D@46136" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.95433, 0, -3.00635)
+
+[node name="@RayCast3D@46137" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.90141, 0, -3.05745)
+
+[node name="@RayCast3D@46138" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.84761, 0, -3.10762)
+
+[node name="@RayCast3D@46139" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.79294, 0, -3.15685)
+
+[node name="@RayCast3D@46140" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.73742, 0, -3.20511)
+
+[node name="@RayCast3D@46141" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.68107, 0, -3.2524)
+
+[node name="@RayCast3D@46142" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.6239, 0, -3.29869)
+
+[node name="@RayCast3D@46143" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.56593, 0, -3.34398)
+
+[node name="@RayCast3D@46144" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.50718, 0, -3.38826)
+
+[node name="@RayCast3D@46145" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.44766, 0, -3.4315)
+
+[node name="@RayCast3D@46146" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.3874, 0, -3.47369)
+
+[node name="@RayCast3D@46147" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.32641, 0, -3.51483)
+
+[node name="@RayCast3D@46148" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.26472, 0, -3.55489)
+
+[node name="@RayCast3D@46149" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.20233, 0, -3.59388)
+
+[node name="@RayCast3D@46150" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.13927, 0, -3.63177)
+
+[node name="@RayCast3D@46151" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.07557, 0, -3.66855)
+
+[node name="@RayCast3D@46152" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(2.01122, 0, -3.70421)
+
+[node name="@RayCast3D@46153" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.94627, 0, -3.73875)
+
+[node name="@RayCast3D@46154" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.88072, 0, -3.77215)
+
+[node name="@RayCast3D@46155" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.8146, 0, -3.8044)
+
+[node name="@RayCast3D@46156" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.74793, 0, -3.83549)
+
+[node name="@RayCast3D@46157" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.68073, 0, -3.86541)
+
+[node name="@RayCast3D@46158" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.61301, 0, -3.89415)
+
+[node name="@RayCast3D@46159" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.5448, 0, -3.92171)
+
+[node name="@RayCast3D@46160" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.47612, 0, -3.94807)
+
+[node name="@RayCast3D@46161" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.407, 0, -3.97323)
+
+[node name="@RayCast3D@46162" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.33744, 0, -3.99718)
+
+[node name="@RayCast3D@46163" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.26747, 0, -4.01992)
+
+[node name="@RayCast3D@46164" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.19712, 0, -4.04143)
+
+[node name="@RayCast3D@46165" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.12641, 0, -4.0617)
+
+[node name="@RayCast3D@46166" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.05535, 0, -4.08074)
+
+[node name="@RayCast3D@46167" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.983972, 0, -4.09854)
+
+[node name="@RayCast3D@46168" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.912293, 0, -4.11509)
+
+[node name="@RayCast3D@46169" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.840336, 0, -4.13038)
+
+[node name="@RayCast3D@46170" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.768123, 0, -4.14442)
+
+[node name="@RayCast3D@46171" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.695676, 0, -4.15719)
+
+[node name="@RayCast3D@46172" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.623017, 0, -4.1687)
+
+[node name="@RayCast3D@46173" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.550168, 0, -4.17894)
+
+[node name="@RayCast3D@46174" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.477152, 0, -4.18791)
+
+[node name="@RayCast3D@46175" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.40399, 0, -4.19559)
+
+[node name="@RayCast3D@46176" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.330705, 0, -4.20201)
+
+[node name="@RayCast3D@46177" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.25732, 0, -4.20714)
+
+[node name="@RayCast3D@46178" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.183856, 0, -4.21099)
+
+[node name="@RayCast3D@46179" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.110336, 0, -4.21356)
+
+[node name="@RayCast3D@46180" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(0.0367823, 0, -4.21484)
 
 [node name="TargetArea" type="Area3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.645653, -2.38419e-07, 0.178553)
@@ -168,7 +1355,7 @@ mesh = SubResource("CylinderMesh_a1cq7")
 shape = SubResource("CylinderShape3D_pa1iv")
 
 [node name="Ball" type="RigidBody3D" parent="." groups=["Ball"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368161, 0.0999999, -0.302226)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.431698, 0.0999999, -0.0520527)
 collision_layer = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]

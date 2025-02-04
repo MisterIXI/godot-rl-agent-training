@@ -22,7 +22,7 @@ func _physics_process(_delta):
 		goals_reached.pop_front()
 		
 	# check if turtle is OOB:
-	var bounds_x = settings.env_size.x / 2
+	var bounds_x = settings.env_size.x / 2 -0.15
 	if (
 		turtle.position.x < -bounds_x or
 		turtle.position.x > bounds_x or

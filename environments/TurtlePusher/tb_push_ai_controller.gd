@@ -4,6 +4,7 @@ class_name TBPushAIController
 @onready var env: TurtlePusherEnv = get_parent().get_parent()
 @export var info_label: Label3D
 @export var raycast_sens: RayCastSensor3D
+@export var lidar_sens: RayCastSensor3D
 
 var running_rewards: Array[float] = []
 var is_success: bool = false
@@ -16,27 +17,73 @@ var has_been_close_to_ball: bool = false
 var turns_made: int = 0
 var angle_accum: float = 0
 
+func _ready():
+	super._ready()
+	lidar_sens.display()
+	raycast_sens.display()	
+
+func locate_ball(sens_arr):
+	var fov = 120
+	var hits = []
+	var step = fov / (sens_arr.size() / 2.0)
+	var curr = - fov / 2.0
+	for i in range(sens_arr.size() / 2):
+		if sens_arr[(i*2+1)] == 1:
+			hits.append(curr)
+		curr += step
+	var accum = 0.0
+	for num in hits:
+		accum += num
+	accum *= -1.0
+	if hits.size() > 0:
+		return accum / hits.size()
+	else:
+		return null
+
+
+
 func get_obs() -> Dictionary:
-	var sens = raycast_sens.get_observation()
+	var ball_angle = locate_ball(raycast_sens.get_observation())
+	var sees_ball = 1.0
+	if ball_angle == null:
+		sees_ball = 0.0
+		ball_angle = 0.0
+	var lidar_scan = lidar_sens.get_observation()
+	var lidar_buckets = []
+	
+	# Fill lidar_buckets with the maximum value of lidar_scan in packs of 45, rotated
+	# first bucket seperately:
+	var acc = lidar_scan.slice(0, 23).max()
+	acc = max(acc, lidar_scan.slice(338, 360).max())
+	lidar_buckets.append(acc)
+	for i in range(0, lidar_scan.size(), 45):
+		if i == 0:
+			continue
+		lidar_buckets.append(
+			lidar_scan.slice(i, i + 45).max()
+		)
+	
+	# print("0: " + str(lidar_scan[0]) + " | 89: " + str(lidar_scan[89]))
+	# print(lidar_buckets)
 	# for i in range(sens.size()):
 	# 	sens[i] = 1 if sens[i] > 0 else 0
-	raycast_sens.display()
 	var factor = env.settings.env_size.x
-	var ball_pos = turtle.to_local(env.ball.global_position)
+	# var ball_pos = turtle.to_local(env.ball.global_position)
 	var target_pos = turtle.to_local(env.target.global_position)
 	# ball vel in turtle local space, scaled by 10 to be roughly -1 to 1
-	var ball_vel = turtle.to_local(env.ball.linear_velocity + turtle.global_position)
+	# var ball_vel = turtle.to_local(env.ball.linear_velocity + turtle.global_position)
 	var obs_arr = [
-		turtle.position.x / factor,
-		turtle.position.z / factor,
+		# turtle.position.x / factor,
+		# turtle.position.z / factor,
 		target_pos.x / factor,
 		target_pos.z / factor,
+		ball_angle / 60.0,
+		sees_ball,
 		# ball_pos.x / factor,
 		# ball_pos.z / factor,
-		# ball_vel.x * 10,
-		# ball_vel.z * 10,
 	]
-	obs_arr.append_array(sens)
+	# obs_arr.append_array(sens)
+	obs_arr.append_array(lidar_buckets)
 	return {"obs": obs_arr}
 
 
@@ -75,6 +122,7 @@ func set_action(action) -> void:
 	turtle.set_twist_ang(action["twist_ang"][0])
 
 func _physics_process(_delta):
+	get_obs()
 	# spiral calc
 	angle_accum += turtle.twist_ang * _delta
 	if abs(angle_accum) > deg_to_rad(360):

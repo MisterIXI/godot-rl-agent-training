@@ -6,7 +6,6 @@ class_name TBPushAIController
 @export var raycast_sens: RayCastSensor3D
 @export var lidar_sens: RayCastSensor3D
 @export var ultrasonic_sens: RayCast3D
-@export var debug_mesh: MeshInstance3D
 
 var running_rewards: Array[float] = []
 var is_success: bool = false
@@ -68,8 +67,6 @@ func get_obs() -> Dictionary:
 	var lidar_scan = lidar_sens.get_observation()
 	# print("Ultrasonic: ", ultrasonic_sens.get_observation())
 	var ball_pos = turtle.to_local(self.last_ball_pos_glob)
-	debug_mesh.position = ball_pos
-	print(ball_dir_vec)
 	# print("0: " + str(lidar_scan[0]) + " | 89: " + str(lidar_scan[89]))
 	# print(lidar_buckets)
 	# for i in range(sens.size()):

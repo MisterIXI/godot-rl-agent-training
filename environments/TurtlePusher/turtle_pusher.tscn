@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3q7epvwgd3ds"]
+[gd_scene load_steps=18 format=3 uid="uid://b3q7epvwgd3ds"]
 
 [ext_resource type="Script" path="res://environments/TurtlePusher/turtle_pusher_env.gd" id="1_dfue6"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_qbq3d"]
@@ -24,8 +24,6 @@ size = Vector3(3.2, 2, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vfb5q"]
 size = Vector3(0.05, 0.05, 0.05)
-
-[sub_resource type="PrismMesh" id="PrismMesh_tpwla"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7nlj"]
 transparency = 1
@@ -86,13 +84,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.589713, 0, -0.663526)
 contact_monitor = true
 max_contacts_reported = 3
 
-[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens", "lidar_sens", "ultrasonic_sens", "debug_mesh")]
+[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens", "lidar_sens", "ultrasonic_sens")]
 script = ExtResource("3_71ibg")
 info_label = NodePath("../../InfoLabel")
 raycast_sens = NodePath("../BallCameraSensorArray")
 lidar_sens = NodePath("../LidarSensorArray")
 ultrasonic_sens = NodePath("../RayCast3D")
-debug_mesh = NodePath("../debugmesh")
 reset_after = 5000
 
 [node name="Area3D" type="Area3D" parent="Turtlebot"]
@@ -310,10 +307,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0397724, 0)
 target_position = Vector3(0, 0, -4.215)
 collision_mask = 5
 hit_back_faces = false
-
-[node name="debugmesh" type="MeshInstance3D" parent="Turtlebot"]
-transform = Transform3D(0.21163, 0, 0, 0, 0.642424, 0, 0, 0, 0.0494042, 0, 0, 0)
-mesh = SubResource("PrismMesh_tpwla")
 
 [node name="TargetArea" type="Area3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.645653, -2.38419e-07, 0.178553)

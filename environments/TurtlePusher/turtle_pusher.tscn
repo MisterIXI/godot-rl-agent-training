@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3q7epvwgd3ds"]
+[gd_scene load_steps=19 format=3 uid="uid://b3q7epvwgd3ds"]
 
 [ext_resource type="Script" path="res://environments/TurtlePusher/turtle_pusher_env.gd" id="1_dfue6"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_qbq3d"]
@@ -24,6 +24,8 @@ size = Vector3(3.2, 2, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vfb5q"]
 size = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="PrismMesh" id="PrismMesh_tpwla"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7nlj"]
 transparency = 1
@@ -81,12 +83,16 @@ shape = SubResource("BoxShape3D_11wxs")
 
 [node name="Turtlebot" parent="." instance=ExtResource("1_qbq3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.589713, 0, -0.663526)
+contact_monitor = true
+max_contacts_reported = 3
 
-[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens", "lidar_sens")]
+[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens", "lidar_sens", "ultrasonic_sens", "debug_mesh")]
 script = ExtResource("3_71ibg")
 info_label = NodePath("../../InfoLabel")
 raycast_sens = NodePath("../BallCameraSensorArray")
 lidar_sens = NodePath("../LidarSensorArray")
+ultrasonic_sens = NodePath("../RayCast3D")
+debug_mesh = NodePath("../debugmesh")
 reset_after = 5000
 
 [node name="Area3D" type="Area3D" parent="Turtlebot"]
@@ -103,158 +109,158 @@ collision_mask = 5
 boolean_class_mask = 4
 n_rays_width = 30.0
 n_rays_height = 1.0
-ray_length = 4.0
+ray_length = 4.215
 cone_width = 120.0
 collide_with_areas = true
 class_sensor = true
 
-[node name="@RayCast3D@28477" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-3.39219, 0, 2.11968)
+[node name="node_0 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.57452, 0, 2.23361)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="@RayCast3D@28478" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-3.23607, 0, 2.35114)
+[node name="node_1 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.41001, 0, 2.47751)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_2 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-3.06418, 0, 2.57115)
+[node name="@RayCast3D@25922" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.22888, 0, 2.70935)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_3 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-2.87736, 0, 2.77863)
+[node name="@RayCast3D@25923" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.03202, 0, 2.92798)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_4 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-2.67652, 0, 2.97258)
+[node name="@RayCast3D@25924" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.82039, 0, 3.13236)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_5 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-2.46265, 0, 3.15204)
+[node name="@RayCast3D@25925" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.59501, 0, 3.32147)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_6 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-2.23677, 0, 3.31615)
+[node name="@RayCast3D@25926" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.357, 0, 3.49439)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_7 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-2, 0, 3.4641)
+[node name="@RayCast3D@25927" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.1075, 0, 3.6503)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_8 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-1.75348, 0, 3.59518)
+[node name="@RayCast3D@25928" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.84773, 0, 3.78842)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_9 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-1.49843, 0, 3.70874)
+[node name="@RayCast3D@25929" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.57897, 0, 3.90808)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_10 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-1.23607, 0, 3.80423)
+[node name="@RayCast3D@25930" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.30251, 0, 4.0087)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_11 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-0.967688, 0, 3.88118)
+[node name="@RayCast3D@25931" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.0197, 0, 4.0898)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_12 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-0.694593, 0, 3.93923)
+[node name="@RayCast3D@25932" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.731927, 0, 4.15096)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_13 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-0.418114, 0, 3.97809)
+[node name="@RayCast3D@25933" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.440587, 0, 4.19191)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_14 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(-0.139598, 0, 3.99756)
+[node name="@RayCast3D@25934" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.147101, 0, 4.21243)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_15 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(0.139598, 0, 3.99756)
+[node name="@RayCast3D@25935" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.147101, 0, 4.21243)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_16 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(0.418114, 0, 3.97809)
+[node name="@RayCast3D@25936" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.440587, 0, 4.19191)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_17 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(0.694593, 0, 3.93923)
+[node name="@RayCast3D@25937" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.731927, 0, 4.15096)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_18 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(0.967688, 0, 3.88118)
+[node name="@RayCast3D@25938" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.0197, 0, 4.0898)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_19 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(1.23607, 0, 3.80423)
+[node name="@RayCast3D@25939" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.30251, 0, 4.0087)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_20 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(1.49843, 0, 3.70874)
+[node name="@RayCast3D@25940" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.57897, 0, 3.90808)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_21 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(1.75348, 0, 3.59518)
+[node name="@RayCast3D@25941" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.84773, 0, 3.78842)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_22 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(2, 0, 3.4641)
+[node name="@RayCast3D@25942" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.1075, 0, 3.6503)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_23 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(2.23677, 0, 3.31615)
+[node name="@RayCast3D@25943" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.357, 0, 3.49439)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_24 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(2.46265, 0, 3.15204)
+[node name="@RayCast3D@25944" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.59501, 0, 3.32147)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_25 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(2.67652, 0, 2.97258)
+[node name="@RayCast3D@25945" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.82039, 0, 3.13236)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_26 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(2.87736, 0, 2.77863)
+[node name="@RayCast3D@25946" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.03202, 0, 2.92798)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_27 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(3.06418, 0, 2.57115)
+[node name="@RayCast3D@25947" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.22888, 0, 2.70935)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_28 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(3.23607, 0, 2.35114)
+[node name="@RayCast3D@25948" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.41001, 0, 2.47751)
 collision_mask = 5
 collide_with_areas = true
 
-[node name="node_29 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
-target_position = Vector3(3.39219, 0, 2.11968)
+[node name="@RayCast3D@25949" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.57452, 0, 2.23361)
 collision_mask = 5
 collide_with_areas = true
 
@@ -299,6 +305,16 @@ collide_with_areas = true
 target_position = Vector3(1.61301, 0, -3.89415)
 collide_with_areas = true
 
+[node name="RayCast3D" type="RayCast3D" parent="Turtlebot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0397724, 0)
+target_position = Vector3(0, 0, -4.215)
+collision_mask = 5
+hit_back_faces = false
+
+[node name="debugmesh" type="MeshInstance3D" parent="Turtlebot"]
+transform = Transform3D(0.21163, 0, 0, 0, 0.642424, 0, 0, 0, 0.0494042, 0, 0, 0)
+mesh = SubResource("PrismMesh_tpwla")
+
 [node name="TargetArea" type="Area3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.645653, -2.38419e-07, 0.178553)
 
@@ -309,7 +325,7 @@ mesh = SubResource("CylinderMesh_a1cq7")
 shape = SubResource("CylinderShape3D_pa1iv")
 
 [node name="Ball" type="RigidBody3D" parent="." groups=["Ball"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.431698, 0.0999999, -0.0520527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122474, 0.0999999, -0.466079)
 collision_layer = 5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]

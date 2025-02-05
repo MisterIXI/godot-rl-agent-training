@@ -5,6 +5,8 @@ class_name TBPushAIController
 @export var info_label: Label3D
 @export var raycast_sens: RayCastSensor3D
 @export var lidar_sens: RayCastSensor3D
+@export var ultrasonic_sens: RayCast3D
+@export var debug_mesh: MeshInstance3D
 
 var running_rewards: Array[float] = []
 var is_success: bool = false
@@ -13,6 +15,10 @@ var closest_dist: float = 0
 var closest_to_ball: float = 0
 var ball_in_button_area: bool = false
 var has_been_close_to_ball: bool = false
+var last_ball_pos_glob: Vector3 = Vector3.ZERO
+
+const FOV = 120.0
+const BALL_MIDDLE = 20.0
 
 var turns_made: int = 0
 var angle_accum: float = 0
@@ -21,6 +27,7 @@ func _ready():
 	super._ready()
 	lidar_sens.display()
 	raycast_sens.display()	
+	turtle.body_entered.connect(_on_turtle_body_entered)
 
 func locate_ball(sens_arr):
 	var fov = 120
@@ -36,7 +43,12 @@ func locate_ball(sens_arr):
 		accum += num
 	accum *= -1.0
 	if hits.size() > 0:
-		return accum / hits.size()
+		var ball_angle = accum / hits.size()
+		# update ball pos glob if ball is straight ahead
+		if ball_angle < BALL_MIDDLE/2 and ball_angle > -BALL_MIDDLE/2:
+			var dist = ultrasonic_sens.get_collision_point().distance_to(turtle.global_position)
+			last_ball_pos_glob = turtle.to_global(Vector3(0, 0, -dist))
+		return ball_angle
 	else:
 		return null
 
@@ -45,12 +57,19 @@ func locate_ball(sens_arr):
 func get_obs() -> Dictionary:
 	var ball_angle = locate_ball(raycast_sens.get_observation())
 	var sees_ball = 1.0
+	var ball_dir_vec = Vector2.ZERO
 	if ball_angle == null:
 		sees_ball = 0.0
 		ball_angle = 0.0
+	else:
+		ball_dir_vec = Vector2(cos(deg_to_rad(ball_angle)), sin(deg_to_rad(ball_angle))).normalized()
+		# turn to -z direction of turtle
+		ball_dir_vec = ball_dir_vec.rotated(deg_to_rad(-90))
 	var lidar_scan = lidar_sens.get_observation()
-
-	
+	# print("Ultrasonic: ", ultrasonic_sens.get_observation())
+	var ball_pos = turtle.to_local(self.last_ball_pos_glob)
+	debug_mesh.position = ball_pos
+	print(ball_dir_vec)
 	# print("0: " + str(lidar_scan[0]) + " | 89: " + str(lidar_scan[89]))
 	# print(lidar_buckets)
 	# for i in range(sens.size()):
@@ -65,10 +84,10 @@ func get_obs() -> Dictionary:
 		# turtle.position.z / factor,
 		target_pos.x / factor,
 		target_pos.z / factor,
-		ball_angle / 60.0,
-		sees_ball,
-		# ball_pos.x / factor,
-		# ball_pos.z / factor,
+		ball_dir_vec.x,
+		ball_dir_vec.y,
+		ball_pos.x / factor,
+		ball_pos.z / factor,
 	]
 	# obs_arr.append_array(sens)
 	obs_arr.append_array(lidar_scan)
@@ -158,3 +177,13 @@ func _on_area_3d_body_entered(body: Node3D):
 func _on_area_3d_body_exited(body: Node3D):
 	if body.is_in_group("Ball"):
 		ball_in_button_area = false
+
+func _on_turtle_body_entered(body: Node3D):
+	if body.is_in_group("Ball"):
+		var dir = body.global_position - turtle.global_position
+		dir = dir.normalized()
+		# check if ball is in front of turtle
+		if acos(dir.dot(-turtle.global_transform.basis.z)) >= deg_to_rad(90):
+			reward -= 0.01
+			print("Punish! ", reward)
+			

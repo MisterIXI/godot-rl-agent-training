@@ -49,19 +49,7 @@ func get_obs() -> Dictionary:
 		sees_ball = 0.0
 		ball_angle = 0.0
 	var lidar_scan = lidar_sens.get_observation()
-	var lidar_buckets = []
-	
-	# Fill lidar_buckets with the maximum value of lidar_scan in packs of 45, rotated
-	# first bucket seperately:
-	var acc = lidar_scan.slice(0, 23).max()
-	acc = max(acc, lidar_scan.slice(338, 360).max())
-	lidar_buckets.append(acc)
-	for i in range(0, lidar_scan.size(), 45):
-		if i == 0:
-			continue
-		lidar_buckets.append(
-			lidar_scan.slice(i, i + 45).max()
-		)
+
 	
 	# print("0: " + str(lidar_scan[0]) + " | 89: " + str(lidar_scan[89]))
 	# print(lidar_buckets)
@@ -83,7 +71,7 @@ func get_obs() -> Dictionary:
 		# ball_pos.z / factor,
 	]
 	# obs_arr.append_array(sens)
-	obs_arr.append_array(lidar_buckets)
+	obs_arr.append_array(lidar_scan)
 	return {"obs": obs_arr}
 
 

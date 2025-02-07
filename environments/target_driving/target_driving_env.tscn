@@ -77,6 +77,7 @@ info_label = NodePath("../../InfoLabel")
 raycast_sens = NodePath("../BallCameraSensorArray")
 lidar_sens = NodePath("../LidarSensorArray")
 ultrasonic_sens = NodePath("../RayCast3D")
+reset_after = 7000
 
 [node name="Area3D" type="Area3D" parent="Turtlebot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0582185, -0.114774)
@@ -305,6 +306,8 @@ shape = SubResource("CylinderShape3D_he5vo")
 
 [node name="InfoLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.33903)
+
+[node name="Camera3D" type="Camera3D" parent="."]
 
 [connection signal="body_entered" from="Turtlebot" to="Turtlebot/TB_PushAIController" method="_on_turtlebot_body_entered"]
 [connection signal="body_entered" from="Turtlebot/Area3D" to="Turtlebot/TB_PushAIController" method="_on_area_3d_body_entered"]

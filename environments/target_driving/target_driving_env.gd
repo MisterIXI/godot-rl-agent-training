@@ -8,6 +8,7 @@ class_name TargetDrivingEnv
 @export var tb_ai_controller: TargetDrivingAIController
 @export var target: Area3D
 
+var target_reached_count = 0
 var goals_reached: Array[int] = []
 
 func roll_random_pos(half_size: float) -> Vector3:
@@ -36,6 +37,25 @@ func _physics_process(_delta):
 		tb_ai_controller.is_success = false
 
 
+func target_reached() -> void:
+	target_reached_count += 1
+	tb_ai_controller.reward += settings.reward_success
+	goals_reached.append(Time.get_ticks_msec())
+	reposition_target_area()
+	if target_reached_count >= 5:
+		tb_ai_controller.done = true
+		tb_ai_controller.needs_reset = true
+		tb_ai_controller.is_success = true
+
+func reposition_target_area() -> void:
+	var half_env_size: float = settings.env_size.x / 2 - settings.spawn_margin * 2
+	var new_pos: Vector3 = roll_random_pos(half_env_size)
+	while (
+		new_pos.distance_to(turtle.position) < settings.spawn_margin * 2
+	):
+		new_pos = roll_random_pos(half_env_size)
+	target.position = new_pos
+
 func reset() -> void:
 	# roll positions until all are valid
 	var turtle_pos: Vector3 = Vector3.ZERO
@@ -53,6 +73,7 @@ func reset() -> void:
 	):
 		target_pos = roll_random_pos(half_env_size)
 	target.position = target_pos
+	target_reached_count = 0
 	# reset ai controller
 	tb_ai_controller.reset()
 	pass

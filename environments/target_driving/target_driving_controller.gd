@@ -64,7 +64,7 @@ func get_action_space() -> Dictionary:
 	}
 
 func set_action(action) -> void:
-	turtle.set_twist_vel(clamp(action["twist_vel"][0], -1.0, 0.5))
+	turtle.set_twist_vel(clamp(action["twist_vel"][0], -0.5, 1.0))
 	# turtle.set_twist_vel(-action["twist_vel"][0])
 	turtle.set_twist_ang(action["twist_ang"][0])
 
@@ -110,10 +110,7 @@ func get_info() -> Dictionary:
 
 func _on_target_area_body_entered(body:Node3D) -> void:
 	if body == turtle:
-		is_success = true
-		done = true
-		reward += env.settings.reward_success
-		needs_reset = true
+		env.target_reached()
 
 func _on_turtlebot_body_entered(body:Node) -> void:
 	if body.is_in_group("Wall"):

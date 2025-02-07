@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 		twist_ang = input_dir.x * 2.0
 	# calculate velocity
 	var velocity = Vector3.ZERO
-	velocity.z = twist_vel
+	velocity.z = -twist_vel
 	velocity = transform.basis * velocity
 	rotate_y(-twist_ang * delta)	
 	var wheel_rot_speed := Vector2.ZERO

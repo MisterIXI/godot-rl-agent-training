@@ -1,0 +1,312 @@
+[gd_scene load_steps=14 format=3 uid="uid://bgi8tgufsglts"]
+
+[ext_resource type="Script" path="res://environments/target_driving/target_driving_env.gd" id="1_r52rf"]
+[ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="2_0ictt"]
+[ext_resource type="Resource" uid="uid://b5is20bmkp8wy" path="res://environments/target_driving/target_driving_setting.tres" id="2_fm80n"]
+[ext_resource type="Script" path="res://environments/target_driving/target_driving_controller.gd" id="3_eogy4"]
+[ext_resource type="Script" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="4_18cgp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4cbxn"]
+size = Vector3(0.1, 2, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4h33r"]
+size = Vector3(2.5, 2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f1o7h"]
+size = Vector3(2.4, 0.2, 2.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t6wwb"]
+size = Vector3(2.4, 0.2, 2.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_prxyc"]
+size = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7nlj"]
+transparency = 1
+albedo_color = Color(0, 1, 1, 0.498039)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hr0xt"]
+material = SubResource("StandardMaterial3D_s7nlj")
+height = 1.8
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_he5vo"]
+
+[node name="TargetDrivingEnv" type="Node3D" node_paths=PackedStringArray("turtle", "tb_ai_controller", "target")]
+script = ExtResource("1_r52rf")
+settings = ExtResource("2_fm80n")
+turtle = NodePath("Turtlebot")
+tb_ai_controller = NodePath("Turtlebot/TB_PushAIController")
+target = NodePath("TargetArea")
+
+[node name="Walls" type="StaticBody3D" parent="." groups=["Wall"]]
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.7, 0)
+shape = SubResource("BoxShape3D_4cbxn")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.7, 0)
+shape = SubResource("BoxShape3D_4cbxn")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -1.25)
+shape = SubResource("BoxShape3D_4h33r")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.25)
+shape = SubResource("BoxShape3D_4h33r")
+
+[node name="Arena" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("BoxMesh_f1o7h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_t6wwb")
+
+[node name="Turtlebot" parent="." instance=ExtResource("2_0ictt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0631512, 1.19209e-07, -0.0247374)
+contact_monitor = true
+max_contacts_reported = 3
+
+[node name="TB_PushAIController" type="Node3D" parent="Turtlebot" node_paths=PackedStringArray("info_label", "raycast_sens", "lidar_sens", "ultrasonic_sens")]
+script = ExtResource("3_eogy4")
+info_label = NodePath("../../InfoLabel")
+raycast_sens = NodePath("../BallCameraSensorArray")
+lidar_sens = NodePath("../LidarSensorArray")
+ultrasonic_sens = NodePath("../RayCast3D")
+
+[node name="Area3D" type="Area3D" parent="Turtlebot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0582185, -0.114774)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Turtlebot/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0350365)
+shape = SubResource("BoxShape3D_prxyc")
+
+[node name="BallCameraSensorArray" type="Node3D" parent="Turtlebot"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.12, 0)
+script = ExtResource("4_18cgp")
+collision_mask = 5
+boolean_class_mask = 4
+n_rays_width = 30.0
+n_rays_height = 1.0
+ray_length = 4.215
+cone_width = 120.0
+collide_with_areas = true
+class_sensor = true
+
+[node name="node_0 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.57452, 0, 2.23361)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="node_1 0" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.41001, 0, 2.47751)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25922" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.22888, 0, 2.70935)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25923" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-3.03202, 0, 2.92798)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25924" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.82039, 0, 3.13236)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25925" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.59501, 0, 3.32147)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25926" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.357, 0, 3.49439)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25927" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-2.1075, 0, 3.6503)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25928" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.84773, 0, 3.78842)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25929" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.57897, 0, 3.90808)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25930" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.30251, 0, 4.0087)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25931" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-1.0197, 0, 4.0898)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25932" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.731927, 0, 4.15096)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25933" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.440587, 0, 4.19191)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25934" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(-0.147101, 0, 4.21243)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25935" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.147101, 0, 4.21243)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25936" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.440587, 0, 4.19191)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25937" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(0.731927, 0, 4.15096)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25938" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.0197, 0, 4.0898)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25939" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.30251, 0, 4.0087)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25940" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.57897, 0, 3.90808)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25941" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(1.84773, 0, 3.78842)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25942" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.1075, 0, 3.6503)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25943" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.357, 0, 3.49439)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25944" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.59501, 0, 3.32147)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25945" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(2.82039, 0, 3.13236)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25946" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.03202, 0, 2.92798)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25947" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.22888, 0, 2.70935)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25948" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.41001, 0, 2.47751)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="_RayCast3D_25949" type="RayCast3D" parent="Turtlebot/BallCameraSensorArray"]
+target_position = Vector3(3.57452, 0, 2.23361)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="LidarSensorArray" type="Node3D" parent="Turtlebot"]
+transform = Transform3D(0.927184, 0, -0.374607, 0, 1, 0, 0.374607, 0, 0.927184, 0, 0.3, 0)
+script = ExtResource("4_18cgp")
+n_rays_width = 8.0
+n_rays_height = 1.0
+ray_length = 4.215
+cone_width = 360.0
+collide_with_areas = true
+
+[node name="_RayCast3D_22886" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.61301, 0, -3.89415)
+collide_with_areas = true
+
+[node name="_RayCast3D_22887" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.89415, 0, -1.61301)
+collide_with_areas = true
+
+[node name="node_2 0" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-3.89415, 0, 1.61301)
+collide_with_areas = true
+
+[node name="node_3 0" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(-1.61301, 0, 3.89415)
+collide_with_areas = true
+
+[node name="node_4 0" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.61301, 0, 3.89415)
+collide_with_areas = true
+
+[node name="node_5 0" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.89415, 0, 1.61301)
+collide_with_areas = true
+
+[node name="node_6 0" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(3.89415, 0, -1.61301)
+collide_with_areas = true
+
+[node name="node_7 0" type="RayCast3D" parent="Turtlebot/LidarSensorArray"]
+target_position = Vector3(1.61301, 0, -3.89415)
+collide_with_areas = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Turtlebot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0397724, 0)
+target_position = Vector3(0, 0, -4.215)
+collision_mask = 5
+hit_back_faces = false
+
+[node name="TargetArea" type="Area3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.645653, -2.38419e-07, 0.178553)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TargetArea"]
+mesh = SubResource("CylinderMesh_hr0xt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetArea"]
+shape = SubResource("CylinderShape3D_he5vo")
+
+[node name="InfoLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 1.33903)
+
+[connection signal="body_entered" from="Turtlebot" to="Turtlebot/TB_PushAIController" method="_on_turtlebot_body_entered"]
+[connection signal="body_entered" from="Turtlebot/Area3D" to="Turtlebot/TB_PushAIController" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Turtlebot/Area3D" to="Turtlebot/TB_PushAIController" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="TargetArea" to="Turtlebot/TB_PushAIController" method="_on_target_area_body_entered"]

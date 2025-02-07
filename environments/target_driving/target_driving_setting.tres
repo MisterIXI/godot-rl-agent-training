@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TargetDrivingEnvSetting" load_steps=2 format=3 uid="uid://b5is20bmkp8wy"]
+
+[ext_resource type="Script" path="res://environments/target_driving/target_driving_setting.gd" id="1_nrt00"]
+
+[resource]
+script = ExtResource("1_nrt00")
+spawn_margin = 0.1
+reward_success = 5.0
+reward_failure = -5.0
+env_size = Vector2(2.4, 2.4)
+env_margin = Vector2(1, 1)
+env_count = Vector2i(4, 3)
+control_mode = 1
+action_repeat = 16
+speed_up = 8.0
+onnx_model_path = ""
+camera_pos = Vector3(0, 7, 3)
+camera_rot = Vector3(-71, 0, 0)

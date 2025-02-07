@@ -16,13 +16,13 @@ func _physics_process(delta: float) -> void:
 	if manual_control_override:
 		var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		# input_dir = input_dir.normalized()
-		twist_vel = input_dir.y * 0.20
-		twist_ang = input_dir.x * 2.0
+		twist_vel = -input_dir.y * 0.20
+		twist_ang = -input_dir.x * 2.0
 	# calculate velocity
 	var velocity = Vector3.ZERO
 	velocity.z = -twist_vel
 	velocity = transform.basis * velocity
-	rotate_y(-twist_ang * delta)	
+	rotate_y(twist_ang * delta)	
 	var wheel_rot_speed := Vector2.ZERO
 	# animate wheels
 	# twist_vel animation part

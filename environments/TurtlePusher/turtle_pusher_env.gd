@@ -85,5 +85,3 @@ func _on_target_area_body_entered(body:Node3D) -> void:
 		tb_ai_controller.needs_reset = true
 		tb_ai_controller.is_success = true
 		goals_reached.append(Time.get_ticks_msec())
-
-

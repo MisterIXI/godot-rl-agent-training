@@ -88,6 +88,11 @@ func get_obs() -> Dictionary:
 	]
 	# obs_arr.append_array(sens)
 	obs_arr.append_array(lidar_scan)
+	# var mystr = "----------------\n"
+	# for val in obs_arr:
+	# 	mystr += str(val) + "\n"
+	# if n_steps % 50 == 0:
+	# 	print(mystr)
 	return {"obs": obs_arr}
 
 
@@ -124,6 +129,7 @@ func set_action(action) -> void:
 	turtle.set_twist_vel(clamp(action["twist_vel"][0], -0.5, 1.0))
 	# turtle.set_twist_vel(-action["twist_vel"][0])
 	turtle.set_twist_ang(action["twist_ang"][0])
+	# print("Vel: ", "%.4f" % turtle.target_vel, " Ang: ", "%.4f" % turtle.target_ang)
 
 func _physics_process(_delta):
 	get_obs()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5od6xhj4ll45"]
 
-[ext_resource type="Script" path="res://project_scenes/list_entry.gd" id="1_3pf18"]
+[ext_resource type="Script" uid="uid://bq3ufg71dy8o2" path="res://project_scenes/list_entry.gd" id="1_3pf18"]
 [ext_resource type="Texture2D" uid="uid://cgo5sm71ibtf0" path="res://environments/tb_soccer/SoccerScreenshot.png" id="1_rus42"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hmcw"]

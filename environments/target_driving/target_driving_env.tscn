@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bgi8tgufsglts"]
 
-[ext_resource type="Script" path="res://environments/target_driving/target_driving_env.gd" id="1_r52rf"]
+[ext_resource type="Script" uid="uid://bluat2nnvwnq8" path="res://environments/target_driving/target_driving_env.gd" id="1_r52rf"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="2_0ictt"]
 [ext_resource type="Resource" uid="uid://b5is20bmkp8wy" path="res://environments/target_driving/target_driving_setting.tres" id="2_fm80n"]
-[ext_resource type="Script" path="res://environments/target_driving/target_driving_controller.gd" id="3_eogy4"]
-[ext_resource type="Script" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="4_18cgp"]
+[ext_resource type="Script" uid="uid://c2p45bx45xxr0" path="res://environments/target_driving/target_driving_controller.gd" id="3_eogy4"]
+[ext_resource type="Script" uid="uid://cru6s0fi54qs0" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="4_18cgp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cbxn"]
 size = Vector3(0.1, 2, 2.5)

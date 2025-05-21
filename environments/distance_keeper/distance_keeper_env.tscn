@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bkejlr2q4vviu"]
 
-[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_env.gd" id="1_omlkm"]
+[ext_resource type="Script" uid="uid://c0ks7vtatsk2d" path="res://environments/distance_keeper/distance_keeper_env.gd" id="1_omlkm"]
 [ext_resource type="Resource" uid="uid://dpq8kyveju8l0" path="res://environments/distance_keeper/default_distance_keeper.tres" id="2_ddmdp"]
-[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_agent.gd" id="2_pkra6"]
-[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_controller.gd" id="3_d0bv6"]
-[ext_resource type="Script" path="res://environments/distance_keeper/distance_keeper_obstacle.gd" id="5_478l5"]
+[ext_resource type="Script" uid="uid://bjcjot5qh86ja" path="res://environments/distance_keeper/distance_keeper_agent.gd" id="2_pkra6"]
+[ext_resource type="Script" uid="uid://bkwk7nmde4ddl" path="res://environments/distance_keeper/distance_keeper_controller.gd" id="3_d0bv6"]
+[ext_resource type="Script" uid="uid://bkvtapymn12li" path="res://environments/distance_keeper/distance_keeper_obstacle.gd" id="5_478l5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ffl6"]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://my5dw8klpqax"]
 
-[ext_resource type="Script" path="res://environments/tb_soccer/tb_soccer_env.gd" id="1_2j8c2"]
+[ext_resource type="Script" uid="uid://ok0m7ls2i55g" path="res://environments/tb_soccer/tb_soccer_env.gd" id="1_2j8c2"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_3in31"]
-[ext_resource type="Script" path="res://environments/tb_soccer/tb_soccer_controller.gd" id="3_4ymlu"]
+[ext_resource type="Script" uid="uid://bgcqf4173afe8" path="res://environments/tb_soccer/tb_soccer_controller.gd" id="3_4ymlu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11sgl"]
 albedo_color = Color(0, 0.667499, 1.34766e-06, 1)

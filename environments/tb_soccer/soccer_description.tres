@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnvDescription" load_steps=5 format=3 uid="uid://dackmeye6u06q"]
 
 [ext_resource type="Texture2D" uid="uid://cgo5sm71ibtf0" path="res://environments/tb_soccer/SoccerScreenshot.png" id="1_5aoa1"]
-[ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="1_xyrwr"]
+[ext_resource type="Script" uid="uid://hmeffgthjsgo" path="res://project_scenes/env_descriptor.gd" id="1_xyrwr"]
 [ext_resource type="PackedScene" uid="uid://my5dw8klpqax" path="res://environments/tb_soccer/tb_soccer.tscn" id="2_j8sil"]
 [ext_resource type="Resource" uid="uid://cr2p2tbv1usdl" path="res://environments/tb_soccer/soccer_settings.tres" id="4_fujei"]
 

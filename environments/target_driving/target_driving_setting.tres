@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TargetDrivingEnvSetting" load_steps=2 format=3 uid="uid://b5is20bmkp8wy"]
 
-[ext_resource type="Script" path="res://environments/target_driving/target_driving_setting.gd" id="1_nrt00"]
+[ext_resource type="Script" uid="uid://t20febbupw73" path="res://environments/target_driving/target_driving_setting.gd" id="1_nrt00"]
 
 [resource]
 script = ExtResource("1_nrt00")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://drd78lseuyo0"]
+
+[ext_resource type="Script" uid="uid://c01vtyhfvgvus" path="res://node.gd" id="1_k5cus"]
+[ext_resource type="Texture2D" uid="uid://l2wpx0lm2lgn" path="res://icon.svg" id="2_d6q36"]
+
+[node name="show" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 156.0
+offset_top = 166.0
+offset_right = 233.0
+offset_bottom = 189.0
+text = "adaedaed"
+
+[node name="Node" type="Node" parent="Label"]
+script = ExtResource("1_k5cus")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 275.0
+offset_top = 115.0
+offset_right = 403.0
+offset_bottom = 243.0
+texture = ExtResource("2_d6q36")
+
+[node name="Node" type="Node" parent="TextureRect"]
+script = ExtResource("1_k5cus")

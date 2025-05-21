@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://uk7k7vekstk3"]
 
-[ext_resource type="Script" path="res://project_scenes/env_loader.gd" id="1_uegbv"]
-[ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="2_xdi6n"]
+[ext_resource type="Script" uid="uid://bkd2o0mdguy2i" path="res://project_scenes/env_loader.gd" id="1_uegbv"]
+[ext_resource type="Script" uid="uid://hmeffgthjsgo" path="res://project_scenes/env_descriptor.gd" id="2_xdi6n"]
 [ext_resource type="Resource" uid="uid://hiqu4ga707py" path="res://environments/distance_keeper/dk_descriptor.tres" id="3_xbbtg"]
 [ext_resource type="Resource" uid="uid://c0bpq2vy1imiw" path="res://environments/TurtlePusher/turtle_pusher_descriptor.tres" id="4_xmyc3"]
 [ext_resource type="Resource" uid="uid://dackmeye6u06q" path="res://environments/tb_soccer/soccer_description.tres" id="5_eatdw"]
@@ -20,7 +20,7 @@ corner_radius_bottom_left = 20
 [node name="EnvLoader" type="Node3D" node_paths=PackedStringArray("env_root", "env_container", "selection_menu_node", "connection_text", "camera")]
 script = ExtResource("1_uegbv")
 environments = Array[ExtResource("2_xdi6n")]([ExtResource("3_xbbtg"), ExtResource("4_xmyc3"), ExtResource("5_eatdw"), ExtResource("6_oq86f")])
-selection_override = ExtResource("4_xmyc3")
+selection_override = ExtResource("6_oq86f")
 env_root = NodePath("EnvRoot")
 list_entry_scene = ExtResource("6_y4dh8")
 env_container = NodePath("SelectionMenu/Panel/ScrollContainer/VBoxContainer")

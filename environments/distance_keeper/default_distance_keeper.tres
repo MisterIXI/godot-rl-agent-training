@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DistanceKeeperEnvSettings" load_steps=2 format=3 uid="uid://dpq8kyveju8l0"]
 
-[ext_resource type="Script" path="res://environments/distance_keeper/distance_env_settings.gd" id="1_dhski"]
+[ext_resource type="Script" uid="uid://cqwjxqtrevups" path="res://environments/distance_keeper/distance_env_settings.gd" id="1_dhski"]
 
 [resource]
 script = ExtResource("1_dhski")

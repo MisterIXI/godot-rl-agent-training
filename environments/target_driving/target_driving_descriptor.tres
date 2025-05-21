@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bgi8tgufsglts" path="res://environments/target_driving/target_driving_env.tscn" id="1_2lpmp"]
 [ext_resource type="Texture2D" uid="uid://d3081axbrdunc" path="res://environments/target_driving/TargetDrivingImg.png" id="1_sco2b"]
-[ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="2_2u47i"]
+[ext_resource type="Script" uid="uid://hmeffgthjsgo" path="res://project_scenes/env_descriptor.gd" id="2_2u47i"]
 [ext_resource type="Resource" uid="uid://b5is20bmkp8wy" path="res://environments/target_driving/target_driving_setting.tres" id="3_po6kv"]
 
 [resource]

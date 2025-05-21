@@ -1,10 +1,10 @@
 [gd_scene load_steps=20 format=3 uid="uid://b3q7epvwgd3ds"]
 
-[ext_resource type="Script" path="res://environments/TurtlePusher/turtle_pusher_env.gd" id="1_dfue6"]
+[ext_resource type="Script" uid="uid://w65dwf3lbdeg" path="res://environments/TurtlePusher/turtle_pusher_env.gd" id="1_dfue6"]
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_qbq3d"]
 [ext_resource type="Resource" uid="uid://bcjq6bvv58jbs" path="res://environments/TurtlePusher/default_tb_pusher.tres" id="2_rsjuf"]
-[ext_resource type="Script" path="res://environments/TurtlePusher/tb_push_ai_controller.gd" id="3_71ibg"]
-[ext_resource type="Script" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="5_3oubp"]
+[ext_resource type="Script" uid="uid://xjs54q62lbyl" path="res://environments/TurtlePusher/tb_push_ai_controller.gd" id="3_71ibg"]
+[ext_resource type="Script" uid="uid://cru6s0fi54qs0" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="5_3oubp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opbsr"]
 albedo_color = Color(0.60933, 0.60933, 0.60933, 1)

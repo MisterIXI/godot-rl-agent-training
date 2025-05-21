@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnvDescription" load_steps=5 format=3 uid="uid://hiqu4ga707py"]
 
 [ext_resource type="PackedScene" uid="uid://bkejlr2q4vviu" path="res://environments/distance_keeper/distance_keeper_env.tscn" id="1_ayj8r"]
-[ext_resource type="Script" path="res://project_scenes/env_descriptor.gd" id="1_snljo"]
+[ext_resource type="Script" uid="uid://hmeffgthjsgo" path="res://project_scenes/env_descriptor.gd" id="1_snljo"]
 [ext_resource type="Texture2D" uid="uid://bkaoadyaojnh6" path="res://environments/distance_keeper/DistanceKeeperImage.png" id="3_qlbvy"]
 [ext_resource type="Resource" uid="uid://dpq8kyveju8l0" path="res://environments/distance_keeper/default_distance_keeper.tres" id="4_t2jjj"]
 

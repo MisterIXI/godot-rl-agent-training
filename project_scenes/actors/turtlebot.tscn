@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://b0qa13qbnlo0i"]
 
-[ext_resource type="Script" path="res://project_scenes/actors/turtlebot_controller.gd" id="1_28rc8"]
+[ext_resource type="Script" uid="uid://c2tdvnvcsfkt5" path="res://project_scenes/actors/turtlebot_controller.gd" id="1_28rc8"]
 [ext_resource type="Texture2D" uid="uid://6jf4cwsj5m1d" path="res://models/turtlebot_turtlebot.png" id="2_ujjto"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0srb0"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TBSoccerSettings" load_steps=2 format=3 uid="uid://cr2p2tbv1usdl"]
 
-[ext_resource type="Script" path="res://environments/tb_soccer/soccer_settings.gd" id="1_pk884"]
+[ext_resource type="Script" uid="uid://do5po2nlwu7v" path="res://environments/tb_soccer/soccer_settings.gd" id="1_pk884"]
 
 [resource]
 script = ExtResource("1_pk884")

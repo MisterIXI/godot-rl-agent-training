@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://dsdny5abw4kh"]
 
 [ext_resource type="PackedScene" uid="uid://b0qa13qbnlo0i" path="res://project_scenes/actors/turtlebot.tscn" id="1_cucwt"]
-[ext_resource type="Script" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="2_dw0vq"]
-[ext_resource type="Script" path="res://project_scenes/ball_locator.gd" id="3_pk2sy"]
+[ext_resource type="Script" uid="uid://cru6s0fi54qs0" path="res://addons/godot_rl_agents/sensors/sensors_3d/RaycastSensor3D.gd" id="2_dw0vq"]
+[ext_resource type="Script" uid="uid://chi5dtnj0dlx8" path="res://project_scenes/ball_locator.gd" id="3_pk2sy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvs6h"]
 transparency = 1
